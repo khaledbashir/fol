@@ -1,12 +1,51 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Mail, ArrowRight, Calendar, FileSpreadsheet, Send } from "lucide-react";
+import { Mail, ArrowRight, Calendar, FileSpreadsheet, Send, Edit3 } from "lucide-react";
+import { WorkbookEditor } from "@/components/editor/workbook-editor";
 
 export function ContactSection() {
+  const [showEditor, setShowEditor] = useState(false);
+
+  const handleEditorSubmit = (content: string, file?: File) => {
+    // Here you would send the content to your backend
+    console.log("Submitting workbook:", { content, file });
+    
+    // You could send via email API, webhook, or direct upload
+    const subject = file ? `Workbook Submission: ${file.name}` : "Workbook Content Submission";
+    const body = `Workbook content submitted:\n\n${content.substring(0, 1000)}${content.length > 1000 ? "..." : ""}`;
+    
+    // Create mailto link
+    window.location.href = `mailto:hello@ahmadbasheer.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  if (showEditor) {
+    return (
+      <section id="contact" className="py-24 relative">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-8"
+          >
+            <Button
+              variant="outline"
+              onClick={() => setShowEditor(false)}
+              className="mb-4"
+            >
+              ← Back to Contact Options
+            </Button>
+          </motion.div>
+          <WorkbookEditor onSubmit={handleEditorSubmit} />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="contact" className="py-24 relative bg-card/30">
       <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent" />
@@ -54,7 +93,12 @@ export function ContactSection() {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="flex-1 group" asChild>
+                <Button size="lg" className="flex-1 group" onClick={() => setShowEditor(true)}>
+                  <Edit3 className="mr-2 h-4 w-4" />
+                  Use Editor (No Upload Needed)
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+                <Button size="lg" variant="outline" className="flex-1 group" asChild>
                   <a href="mailto:hello@ahmadbasheer.com?subject=Free Assessment Request">
                     <Send className="mr-2 h-4 w-4" />
                     Send Your Workbook
