@@ -3,13 +3,10 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { 
   GitBranch, 
   Zap, 
   Target, 
-  Shield, 
-  TrendingUp,
   Brain,
   Layers,
   Settings,
@@ -19,23 +16,23 @@ import {
 const execution = [
   {
     icon: GitBranch,
-    title: "RFP Intelligence Engine",
-    description: "An ingestion pipeline that reads hundreds of pages of construction bid documents, automatically extracts display specifications, architectural mounting details, power requirements, and legal risk factors.",
+    title: "Document Intelligence Engine",
+    description: "An ingestion pipeline that reads hundreds of pages of complex bid documents, RFPs, and specifications — automatically extracting critical requirements, technical parameters, and compliance factors.",
   },
   {
     icon: Brain,
-    title: "The LED Budget Estimator",
-    description: "A guided, linear workflow that distills 20+ years of complex weight-based and square-footage pricing logic into a system any estimator can operate.",
+    title: "Intelligent Estimation System",
+    description: "A guided, linear workflow that distills decades of complex pricing logic — weight-based tiers, square-footage calculations, conditional multipliers — into a system any team member can operate.",
   },
   {
     icon: Layers,
-    title: "Smart Assembly Bundler",
-    description: "An AI-powered guardrail that automatically recommends required ancillary components — fiber converters, structural steel backing, weatherproofing kits — based on primary display configuration.",
+    title: "Smart Component Bundler",
+    description: "An AI-powered guardrail that automatically recommends required ancillary items, add-ons, and配套 components based on the primary configuration, preventing costly omissions.",
   },
   {
     icon: Settings,
-    title: "Mirror Mode Pipeline",
-    description: "For senior estimators who preferred their existing Excel workflow, the system reads their workbooks directly and generates client-ready, branded PDF proposals without interface change.",
+    title: "Legacy Workflow Integration",
+    description: "For senior staff who prefer existing workflows, the system reads their workbooks directly and generates client-ready, branded deliverables without requiring any interface change.",
   },
 ];
 
@@ -43,7 +40,7 @@ const results = [
   { label: "Knowledge Preservation", value: "20+ years", detail: "of unwritten pricing logic institutionalized" },
   { label: "Speed", value: "3-5 days → <1 hr", detail: "end-to-end proposal generation" },
   { label: "Accuracy", value: "10-15% → 0%", detail: "historical error rate eliminated" },
-  { label: "Scalability", value: "Unlocked", detail: "junior staff producing senior-level proposals" },
+  { label: "Scalability", value: "Unlocked", detail: "junior staff producing senior-level output" },
 ];
 
 export function CaseStudySection() {
@@ -60,11 +57,11 @@ export function CaseStudySection() {
         >
           <Badge variant="outline" className="mb-4 px-4 py-1 border-primary/30">
             <Target className="w-3.5 h-3.5 mr-2 text-primary" />
-            Flagship Case Study
+            Representative Engagement
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">National LED Display Infrastructure</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Enterprise Estimating Platform</h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            Transforming a $100M+ business built on fragile foundations into scalable infrastructure.
+            Transforming tribal knowledge into scalable infrastructure for a mid-market enterprise.
           </p>
         </motion.div>
         
@@ -82,10 +79,10 @@ export function CaseStudySection() {
                 The Challenge
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                A leading integrator of large-scale LED display systems — stadiums, arenas, transit hubs, broadcast facilities — had built a $100M+ business on a fragile foundation: massive Excel workbooks, isolated InDesign templates, and deeply guarded tribal knowledge held by a handful of senior estimators.
+                A mid-market enterprise in the technical services sector had built significant revenue on a fragile foundation: massive Excel workbooks, isolated document templates, and deeply guarded tribal knowledge held by a handful of senior staff.
               </p>
               <p className="text-muted-foreground mt-4 leading-relaxed">
-                Generating a single $5M+ proposal required days of manual work across multiple departments. Pricing logic that had evolved over two decades existed only in the heads of key personnel. The company faced existential risk: if those people left, the institutional knowledge walked out the door.
+                Generating a single high-value proposal required days of manual work across multiple departments. Pricing logic that had evolved over two decades existed only in the heads of key personnel. The company faced existential risk: if those people left, the institutional knowledge walked out the door.
               </p>
             </CardContent>
           </Card>
