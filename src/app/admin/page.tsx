@@ -61,10 +61,24 @@ export default function AdminPage() {
   const fetchProjects = async () => {
     try {
       const res = await fetch("/api/projects");
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
       const data = await res.json();
-      setProjects(data);
+      
+      // Check if data is an array and has the expected structure
+      if (Array.isArray(data)) {
+        setProjects(data);
+      } else if (data.error) {
+        console.error("API returned error:", data.error);
+        setProjects([]);
+      } else {
+        console.error("Unexpected data format:", data);
+        setProjects([]);
+      }
     } catch (error) {
       console.error("Failed to fetch projects:", error);
+      setProjects([]);
     } finally {
       setLoading(false);
     }
@@ -281,7 +295,7 @@ export default function AdminPage() {
                 </Button>
               </div>
               <div className="flex flex-wrap gap-2">
-                {formData.technologies.map((tech, index) => (
+                {Array.isArray(formData.technologies) && formData.technologies.map((tech, index) => (
                   <Badge key={index} variant="secondary" className="gap-1">
                     {tech}
                     <button onClick={() => removeTechnology(index)} className="ml-1 hover:text-destructive">
@@ -351,12 +365,12 @@ export default function AdminPage() {
                           {project.description}
                         </p>
                         <div className="flex flex-wrap gap-1 mt-2">
-                          {project.technologies.slice(0, 4).map((tech, i) => (
+                          {Array.isArray(project.technologies) && project.technologies.slice(0, 4).map((tech, i) => (
                             <Badge key={i} variant="outline" className="text-xs">
                               {tech}
                             </Badge>
                           ))}
-                          {project.technologies.length > 4 && (
+                          {Array.isArray(project.technologies) && project.technologies.length > 4 && (
                             <Badge variant="outline" className="text-xs">
                               +{project.technologies.length - 4}
                             </Badge>

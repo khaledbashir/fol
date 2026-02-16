@@ -3,8 +3,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { User, CheckCircle2, XCircle, ArrowRight, Shield, Lock, Server, Users, HardHat, Factory, Building2 } from "lucide-react";
+import { User, CheckCircle2, XCircle, Shield, Lock, Server, Users, HardHat, Factory, Building2 } from "lucide-react";
 
 const rightFit = [
   "Your most critical business logic lives in the heads of 2–3 senior employees.",

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { GitBranch, Eye, Map, Rocket, Calendar, Clock } from "lucide-react";
+import { GitBranch, Eye, Map, Rocket, Calendar } from "lucide-react";
 
 const steps = [
   {
@@ -110,7 +110,7 @@ export function MethodologySection() {
             Typical Timeline
           </h3>
           <div className="grid md:grid-cols-3 gap-4">
-            {timeline.map((item, index) => (
+            {timeline.map((item) => (
               <Card key={item.phase} className="bg-card/50 border-border/50">
                 <CardContent className="p-5 text-center">
                   <Badge variant="outline" className="mb-2">{item.duration}</Badge>

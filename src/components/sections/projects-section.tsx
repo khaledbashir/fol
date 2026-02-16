@@ -33,12 +33,24 @@ export function ProjectsSection() {
   const fetchProjects = async () => {
     try {
       const res = await fetch("/api/projects");
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
       const data = await res.json();
+      
+      // Check if data is an array and has the expected structure
       if (Array.isArray(data)) {
         setProjects(data.filter((p: Project) => p.featured));
+      } else if (data.error) {
+        console.error("API returned error:", data.error);
+        setProjects([]);
+      } else {
+        console.error("Unexpected data format:", data);
+        setProjects([]);
       }
     } catch (error) {
       console.error("Failed to fetch projects:", error);
+      setProjects([]);
     } finally {
       setLoading(false);
     }
@@ -93,12 +105,12 @@ export function ProjectsSection() {
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-1">
-                    {project.technologies.slice(0, 3).map((tech, i) => (
+                    {Array.isArray(project.technologies) && project.technologies.slice(0, 3).map((tech, i) => (
                       <Badge key={i} variant="secondary" className="text-xs">
                         {tech}
                       </Badge>
                     ))}
-                    {project.technologies.length > 3 && (
+                    {Array.isArray(project.technologies) && project.technologies.length > 3 && (
                       <Badge variant="secondary" className="text-xs">
                         +{project.technologies.length - 3}
                       </Badge>
@@ -162,7 +174,7 @@ export function ProjectsSection() {
                 <div>
                   <h4 className="font-semibold mb-2 text-sm uppercase tracking-wide text-muted-foreground">Technologies</h4>
                   <div className="flex flex-wrap gap-2">
-                    {selectedProject.technologies.map((tech, i) => (
+                    {Array.isArray(selectedProject.technologies) && selectedProject.technologies.map((tech, i) => (
                       <Badge key={i} variant="secondary">{tech}</Badge>
                     ))}
                   </div>

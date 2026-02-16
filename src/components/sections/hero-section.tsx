@@ -68,7 +68,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10 max-w-3xl mx-auto"
           >
-            {quickProof.map((item, index) => (
+            {quickProof.map((item) => (
               <div key={item.label} className="text-center">
                 <Card className="bg-card/50 border-border/50">
                   <CardContent className="p-3">

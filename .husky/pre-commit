@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run zero bullshit check first
+echo "🔍 Running ZERO BULLSHIT check..."
+node .husky/zero-bullshit-check.js
+
+# Run lint-staged
+echo "🔧 Running lint-staged..."
+npx lint-staged

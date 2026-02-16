@@ -1,0 +1,63 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.showUnused": true,
+  "editor.showFoldingControls": "always",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "emmet.includeLanguages": {
+    "typescript": "html",
+    "typescriptreact": "html"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.includeLanguages": {
+    "typescript": "html",
+    "typescriptreact": "html"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+    ["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ],
+  "scm.alwaysShowActions": {
+    "diff": true
+  },
+  "git.autofetch": true,
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.next": true,
+    "**/out": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/.next/**": true,
+    "**/out/**": true
+  },
+  "files.associations": {
+    "*.roo-code-rules.md": "markdown"
+  },
+  "markdown.preview.frontMatter.highlight": true,
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#1a1a1a",
+    "activityBar.foreground": "#ff6b6b",
+    "statusBar.background": "#1a1a1a",
+    "statusBar.foreground": "#ff6b6b",
+    "titleBar.activeBackground": "#1a1a1a",
+    "titleBar.activeForeground": "#ff6b6b"
+  }
+}
