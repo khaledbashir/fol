@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Briefcase, ChevronRight, X, ExternalLink } from "lucide-react";
+import { Briefcase, ChevronRight, X } from "lucide-react";
 
 interface Project {
   id: string;
@@ -34,7 +34,9 @@ export function ProjectsSection() {
     try {
       const res = await fetch("/api/projects");
       const data = await res.json();
-      setProjects(data.filter((p: Project) => p.featured));
+      if (Array.isArray(data)) {
+        setProjects(data.filter((p: Project) => p.featured));
+      }
     } catch (error) {
       console.error("Failed to fetch projects:", error);
     } finally {

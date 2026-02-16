@@ -2,23 +2,23 @@
 
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Lightbulb, Users, Crown } from "lucide-react";
+import { Lightbulb, Users, Gauge } from "lucide-react";
 
 const principles = [
   {
     icon: Lightbulb,
     title: "Operational Architecture Over Feature Lists",
-    description: "I don't digitize broken processes. I identify the structural bottlenecks — where knowledge gets hoarded, where handoffs break down, where errors compound — and I architect systems that bypass legacy constraints entirely.",
+    description: "I identify structural bottlenecks — where knowledge gets hoarded, where handoffs break down, where errors compound — and architect systems that bypass legacy constraints entirely.",
   },
   {
     icon: Users,
     title: "Human-Centric Adoption",
-    description: "I know exactly why employees reject new software: it asks them to change how they think. My interfaces mirror existing mental models, reducing friction to near zero. If your senior estimator can use Excel, he can use what I build — on day one, without training.",
+    description: "Employees reject software that asks them to think differently. My interfaces mirror existing mental models. If your senior estimator can use Excel, he can use what I build — on day one, without training.",
   },
   {
-    icon: Crown,
-    title: "The Rolls-Royce Standard",
-    description: "Enterprise tools should feel like precision instruments, not cluttered dashboards. Every platform I build is understated, powerful, and engineered for immediate output. No feature bloat. No gratuitous UI. Clean logic, clean results.",
+    icon: Gauge,
+    title: "Zero-Surprise Outputs",
+    description: "Understated UI. Fast throughput. Every platform I build is engineered for immediate output. No feature bloat. No gratuitous UI. Clean logic, clean results.",
   },
 ];
 
@@ -33,9 +33,9 @@ export function PhilosophySection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">The Philosophy</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Most Enterprise AI Fails</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Why Most Enterprise AI Fails
+            The reason is never the code. It's the people.
           </p>
         </motion.div>
         
@@ -46,12 +46,8 @@ export function PhilosophySection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="max-w-3xl mx-auto mb-16 text-center"
         >
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            The market is saturated with software that demos well and dies in the field.{" "}
-            <span className="text-foreground font-medium">The reason is never the code. It's the people.</span>
-          </p>
-          <p className="text-muted-foreground mt-4 leading-relaxed">
-            Before I engineered AI systems, I spent a decade in operations, recruiting, and SaaS product leadership. I've watched six-figure platforms collect dust because nobody asked the forty-year veteran estimator how he actually thinks. That operational background shapes every system I build.
+          <p className="text-muted-foreground leading-relaxed">
+            Before I engineered AI systems, I spent a decade in operations, recruiting, and SaaS product leadership. I've watched six-figure platforms collect dust because nobody asked the forty-year veteran estimator how he actually thinks.
           </p>
         </motion.div>
         

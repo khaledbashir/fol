@@ -3,24 +3,36 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { GitBranch, Eye, Map, Rocket } from "lucide-react";
+import { GitBranch, Eye, Map, Rocket, Calendar, Clock } from "lucide-react";
 
 const steps = [
   {
     icon: Eye,
     title: "Passive Logic Extraction",
-    description: "I analyze existing workflows, past proposals, legacy workbooks, and historical bid data to reverse-engineer your pricing and operational logic before I ask your team a single question. By the time I engage your subject-matter experts, I already understand 80% of their process.",
+    description: "I analyze existing workflows, past proposals, and legacy workbooks to reverse-engineer your pricing logic before I ask your team a single question. By the time I engage your experts, I already understand 80% of their process.",
   },
   {
     icon: Map,
     title: "The Parameter Map",
-    description: "I never hand senior employees a blank form and ask them to document their process. Instead, I present pre-populated logic structures built from my extraction work, and I ask them to confirm or correct. This reduces a painful 40-hour documentation effort to a 2-hour verification session.",
+    description: "I present pre-populated logic structures built from my extraction work, asking experts to confirm or correct. This reduces a 40-hour documentation effort to a 2-hour verification session.",
   },
   {
     icon: Rocket,
     title: "Silent Deployment",
-    description: "Every platform is deployed in parallel to existing workflows. Teams run both systems side by side, verifying output accuracy in real conditions. There is no hard cutover. The team naturally gravitates toward the faster, error-free system — and adoption happens without a single change management meeting.",
+    description: "Every platform deploys in parallel to existing workflows. Teams run both systems side-by-side, verifying accuracy in real conditions. No hard cutover. Adoption happens without a single change management meeting.",
   },
+];
+
+const timeline = [
+  { phase: "Sprint", duration: "Week 1-2", description: "Logic extraction, parameter map, risk assessment" },
+  { phase: "Pilot", duration: "Week 3-4", description: "Deploy in parallel, validate outputs with real work" },
+  { phase: "Rollout", duration: "Week 5-6", description: "Full deployment, training, documentation" },
+];
+
+const failureModes = [
+  "Bad extraction — missing critical edge cases",
+  "Hallucinated clauses in generated documents",
+  "Pricing drift from inconsistent logic application",
 ];
 
 export function MethodologySection() {
@@ -39,12 +51,15 @@ export function MethodologySection() {
             The Methodology
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Shadow Engineering</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            I don't run your team through months of discovery workshops. I work in the background, extracting the logic your business runs on without disrupting the people who run it.
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-2">
+            I extract logic without disrupting your operators.
+          </p>
+          <p className="text-muted-foreground max-w-3xl mx-auto">
+            No months of discovery workshops. I work in the background, capturing how your business actually works.
           </p>
         </motion.div>
         
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto mb-16">
           <div className="relative">
             <div className="absolute left-8 top-0 bottom-0 w-px bg-border/50 hidden md:block" />
             
@@ -82,6 +97,52 @@ export function MethodologySection() {
             ))}
           </div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto mb-16"
+        >
+          <h3 className="text-xl font-semibold mb-6 text-center flex items-center justify-center gap-2">
+            <Calendar className="h-5 w-5 text-primary" />
+            Typical Timeline
+          </h3>
+          <div className="grid md:grid-cols-3 gap-4">
+            {timeline.map((item, index) => (
+              <Card key={item.phase} className="bg-card/50 border-border/50">
+                <CardContent className="p-5 text-center">
+                  <Badge variant="outline" className="mb-2">{item.duration}</Badge>
+                  <h4 className="font-semibold mb-1">{item.phase}</h4>
+                  <p className="text-sm text-muted-foreground">{item.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-2xl mx-auto"
+        >
+          <h3 className="text-xl font-semibold mb-4 text-center">Common Failure Modes I Prevent</h3>
+          <Card className="bg-card/50 border-border/50">
+            <CardContent className="p-6">
+              <ul className="space-y-3">
+                {failureModes.map((mode, index) => (
+                  <li key={index} className="flex items-start gap-3 text-sm">
+                    <span className="text-red-400 mt-0.5">✕</span>
+                    <span className="text-muted-foreground">{mode}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     </section>
   );

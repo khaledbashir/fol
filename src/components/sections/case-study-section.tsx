@@ -17,30 +17,30 @@ const execution = [
   {
     icon: GitBranch,
     title: "Document Intelligence Engine",
-    description: "An ingestion pipeline that reads hundreds of pages of complex bid documents, RFPs, and specifications — automatically extracting critical requirements, technical parameters, and compliance factors.",
+    description: "Ingestion pipeline that reads hundreds of pages of bid documents, RFPs, and specifications — automatically extracting requirements, technical parameters, and risk factors.",
   },
   {
     icon: Brain,
     title: "Intelligent Estimation System",
-    description: "A guided, linear workflow that distills decades of complex pricing logic — weight-based tiers, square-footage calculations, conditional multipliers — into a system any team member can operate.",
+    description: "Guided workflow that distills decades of weight-based, square-footage, and conditional pricing logic into a system any estimator can operate.",
   },
   {
     icon: Layers,
     title: "Smart Component Bundler",
-    description: "An AI-powered guardrail that automatically recommends required ancillary items, add-ons, and配套 components based on the primary configuration, preventing costly omissions.",
+    description: "AI-powered guardrail that automatically recommends required ancillary components based on primary configuration — preventing thousands in forgotten line items.",
   },
   {
     icon: Settings,
     title: "Legacy Workflow Integration",
-    description: "For senior staff who prefer existing workflows, the system reads their workbooks directly and generates client-ready, branded deliverables without requiring any interface change.",
+    description: "For senior staff who prefer existing workflows, the system reads their workbooks directly and generates client-ready deliverables without any interface change.",
   },
 ];
 
 const results = [
-  { label: "Knowledge Preservation", value: "20+ years", detail: "of unwritten pricing logic institutionalized" },
-  { label: "Speed", value: "3-5 days → <1 hr", detail: "end-to-end proposal generation" },
-  { label: "Accuracy", value: "10-15% → 0%", detail: "historical error rate eliminated" },
-  { label: "Scalability", value: "Unlocked", detail: "junior staff producing senior-level output" },
+  { label: "Knowledge", value: "20+ yrs", detail: "Logic institutionalized" },
+  { label: "Speed", value: "<1 hr", detail: "From 3-5 days" },
+  { label: "Errors", value: "0%", detail: "From 10-15%" },
+  { label: "Timeline", value: "Weeks", detail: "Not months" },
 ];
 
 export function CaseStudySection() {
@@ -59,18 +59,18 @@ export function CaseStudySection() {
             <Target className="w-3.5 h-3.5 mr-2 text-primary" />
             Representative Engagement
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Enterprise Estimating Platform</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Sports Venue Systems Integrator</h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            Transforming tribal knowledge into scalable infrastructure for a mid-market enterprise.
+            $100M+ revenue · 20+ years of tribal knowledge · 3-5 day proposal cycle
           </p>
         </motion.div>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="max-w-4xl mx-auto mb-12"
+          className="max-w-4xl mx-auto mb-8"
         >
           <Card className="bg-card border-border/50">
             <CardContent className="p-8">
@@ -79,13 +79,45 @@ export function CaseStudySection() {
                 The Challenge
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                A mid-market enterprise in the technical services sector had built significant revenue on a fragile foundation: massive Excel workbooks, isolated document templates, and deeply guarded tribal knowledge held by a handful of senior staff.
+                A systems integrator for sports venues and large-scale facilities had built significant revenue on a fragile foundation: massive Excel workbooks, isolated templates, and deeply guarded tribal knowledge held by a handful of senior estimators.
               </p>
               <p className="text-muted-foreground mt-4 leading-relaxed">
-                Generating a single high-value proposal required days of manual work across multiple departments. Pricing logic that had evolved over two decades existed only in the heads of key personnel. The company faced existential risk: if those people left, the institutional knowledge walked out the door.
+                Generating a single high-value proposal required days of manual work. Pricing logic existed only in key personnel's heads. The company faced existential risk: if those people left, the knowledge walked out the door.
               </p>
             </CardContent>
           </Card>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="mb-8"
+        >
+          <h3 className="text-xl font-semibold mb-6 text-center">Measurable Impact</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            {results.map((result, index) => (
+              <motion.div
+                key={result.label}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+              >
+                <Card className="bg-card border-border/50 text-center h-full">
+                  <CardContent className="p-5">
+                    <CheckCircle2 className="h-5 w-5 text-primary mx-auto mb-2" />
+                    <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">
+                      {result.label}
+                    </p>
+                    <p className="text-2xl font-bold text-foreground mb-1">{result.value}</p>
+                    <p className="text-xs text-muted-foreground">{result.detail}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
         
         <motion.div
@@ -93,7 +125,7 @@ export function CaseStudySection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-12"
+          className="mb-8"
         >
           <h3 className="text-xl font-semibold mb-6 text-center">The Execution</h3>
           <div className="grid md:grid-cols-2 gap-4 max-w-5xl mx-auto">
@@ -118,37 +150,6 @@ export function CaseStudySection() {
                         </p>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          <h3 className="text-xl font-semibold mb-6 text-center">Measurable Impact</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-            {results.map((result, index) => (
-              <motion.div
-                key={result.label}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-              >
-                <Card className="bg-card border-border/50 text-center h-full">
-                  <CardContent className="p-6">
-                    <CheckCircle2 className="h-5 w-5 text-primary mx-auto mb-3" />
-                    <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">
-                      {result.label}
-                    </p>
-                    <p className="text-xl font-bold text-foreground mb-1">{result.value}</p>
-                    <p className="text-xs text-muted-foreground">{result.detail}</p>
                   </CardContent>
                 </Card>
               </motion.div>

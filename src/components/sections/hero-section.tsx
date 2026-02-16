@@ -3,7 +3,15 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowDown, Sparkles } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { ArrowDown, Zap, Clock, Shield, Target } from "lucide-react";
+
+const quickProof = [
+  { icon: Clock, value: "3-5 days → <1 hr", label: "Proposal time" },
+  { icon: Zap, value: "20+ years", label: "Logic preserved" },
+  { icon: Shield, value: "10-15% → 0%", label: "Error rate" },
+  { icon: Target, value: "Weeks", label: "Not months" },
+];
 
 export function HeroSection() {
   return (
@@ -21,7 +29,6 @@ export function HeroSection() {
             className="mb-6"
           >
             <Badge variant="outline" className="px-4 py-1.5 text-sm border-primary/30 text-primary">
-              <Sparkles className="w-3.5 h-3.5 mr-2" />
               Enterprise AI Architect & Systems Engineer
             </Badge>
           </motion.div>
@@ -30,7 +37,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
+            className="text-5xl md:text-6xl font-bold mb-6 leading-tight"
           >
             <span className="text-foreground">Ahmad</span>{" "}
             <span className="text-primary">Basheer</span>
@@ -40,7 +47,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed"
+            className="text-xl md:text-2xl text-muted-foreground mb-6 max-w-2xl mx-auto leading-relaxed"
           >
             I turn corporate bottlenecks into{" "}
             <span className="text-foreground font-medium">scalable AI infrastructure</span>.
@@ -49,11 +56,30 @@ export function HeroSection() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-base text-muted-foreground mb-10 max-w-xl mx-auto"
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="text-base text-muted-foreground mb-8 max-w-xl mx-auto"
           >
-            When critical pricing logic, operational workflows, and legal scoping live in the heads of a few senior employees, your company can't scale. I architect secure, human-centric AI platforms that capture institutional knowledge, eliminate manual data entry, and deliver measurable ROI from day one.
+            Your senior estimators hold 20 years of pricing logic in their heads. When they leave, it walks out the door. I build systems that capture that knowledge and let anyone generate accurate proposals.
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10 max-w-3xl mx-auto"
+          >
+            {quickProof.map((item, index) => (
+              <div key={item.label} className="text-center">
+                <Card className="bg-card/50 border-border/50">
+                  <CardContent className="p-3">
+                    <item.icon className="h-4 w-4 text-primary mx-auto mb-1" />
+                    <p className="text-sm font-bold text-foreground">{item.value}</p>
+                    <p className="text-xs text-muted-foreground">{item.label}</p>
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
+          </motion.div>
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -62,12 +88,21 @@ export function HeroSection() {
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Button size="lg" className="px-8" asChild>
-              <a href="#contact">Start a Conversation</a>
+              <a href="#contact">Free Assessment</a>
             </Button>
             <Button size="lg" variant="outline" className="px-8" asChild>
-              <a href="#case-study">View Case Study</a>
+              <a href="#case-study">See Case Study</a>
             </Button>
           </motion.div>
+          
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-sm text-muted-foreground mt-4"
+          >
+            Send me your ugliest estimator workbook. I'll return a 2-page extraction map.
+          </motion.p>
         </div>
         
         <motion.div
