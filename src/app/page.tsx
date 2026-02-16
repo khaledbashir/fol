@@ -5,6 +5,7 @@ import { PhilosophySection } from "@/components/sections/philosophy-section";
 import { ForgeEngineSection } from "@/components/sections/forge-engine-section";
 import { SolutionsSection } from "@/components/sections/solutions-section";
 import { CaseStudySection } from "@/components/sections/case-study-section";
+import { ProjectsSection } from "@/components/sections/projects-section";
 import { MethodologySection } from "@/components/sections/methodology-section";
 import { SectorsSection } from "@/components/sections/sectors-section";
 import { AboutSection } from "@/components/sections/about-section";
@@ -33,6 +34,7 @@ export default function Home() {
           <ForgeEngineSection />
           <SolutionsSection />
           <CaseStudySection />
+          <ProjectsSection />
           <MethodologySection />
           <SectorsSection />
           <AboutSection />

@@ -24,6 +24,7 @@ import {
   Github,
   Linkedin,
   ExternalLink,
+  FolderKanban,
 } from "lucide-react";
 
 const navItems = [
@@ -32,6 +33,7 @@ const navItems = [
   { href: "#forge-engine", label: "Forge Engine", icon: Layers },
   { href: "#solutions", label: "Solutions", icon: Briefcase },
   { href: "#case-study", label: "Case Study", icon: GitBranch },
+  { href: "#projects", label: "Projects", icon: FolderKanban },
   { href: "#sectors", label: "Sectors", icon: Building2 },
   { href: "#about", label: "About", icon: User },
   { href: "#contact", label: "Contact", icon: Mail },
