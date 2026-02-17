@@ -77,6 +77,17 @@ function normalizeProject(project: unknown): Project | null {
   };
 }
 
+function extractProjectsPayload(data: unknown): unknown[] {
+  if (Array.isArray(data)) return data;
+  if (!data || typeof data !== "object") return [];
+
+  const payload = data as Record<string, unknown>;
+  if (Array.isArray(payload["projects"])) return payload["projects"];
+  if (Array.isArray(payload["data"])) return payload["data"];
+
+  return [];
+}
+
 const emptyProject = {
   title: "",
   client: "",
@@ -109,19 +120,20 @@ export default function AdminPage() {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
       const data = await res.json();
-      
-      // Check if data is an array and has the expected structure
-      if (Array.isArray(data)) {
-        const normalized = data
-          .map((project) => normalizeProject(project))
-          .filter((project): project is Project => project !== null);
-        setProjects(normalized);
-      } else if (data.error) {
-        console.error("API returned error:", data.error);
-        setProjects([]);
-      } else {
-        console.error("Unexpected data format:", data);
-        setProjects([]);
+
+      const payload = extractProjectsPayload(data);
+      const normalized = payload
+        .map((project) => normalizeProject(project))
+        .filter((project): project is Project => project !== null);
+      setProjects(normalized);
+
+      if (
+        payload.length === 0 &&
+        data &&
+        typeof data === "object" &&
+        typeof (data as Record<string, unknown>)["error"] === "string"
+      ) {
+        console.error("API returned error:", (data as Record<string, unknown>)["error"]);
       }
     } catch (error) {
       console.error("Failed to fetch projects:", error);
