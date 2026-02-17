@@ -33,6 +33,50 @@ interface Project {
   updatedAt: string;
 }
 
+function normalizeTechnologies(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value
+      .filter((item): item is string => typeof item === "string")
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    if (!trimmed) return [];
+
+    return trimmed
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
+function normalizeProject(project: unknown): Project | null {
+  if (!project || typeof project !== "object") return null;
+
+  const p = project as Record<string, unknown>;
+  if (typeof p["id"] !== "string") return null;
+
+  return {
+    id: p["id"],
+    title: typeof p["title"] === "string" ? p["title"] : "",
+    client: typeof p["client"] === "string" ? p["client"] : "",
+    description: typeof p["description"] === "string" ? p["description"] : "",
+    challenge: typeof p["challenge"] === "string" ? p["challenge"] : "",
+    solution: typeof p["solution"] === "string" ? p["solution"] : "",
+    results: typeof p["results"] === "string" ? p["results"] : "",
+    technologies: normalizeTechnologies(p["technologies"]),
+    sector: typeof p["sector"] === "string" ? p["sector"] : "",
+    image: typeof p["image"] === "string" || p["image"] === null ? p["image"] : null,
+    featured: Boolean(p["featured"]),
+    createdAt: typeof p["createdAt"] === "string" ? p["createdAt"] : "",
+    updatedAt: typeof p["updatedAt"] === "string" ? p["updatedAt"] : "",
+  };
+}
+
 const emptyProject = {
   title: "",
   client: "",
@@ -68,7 +112,10 @@ export default function AdminPage() {
       
       // Check if data is an array and has the expected structure
       if (Array.isArray(data)) {
-        setProjects(data);
+        const normalized = data
+          .map((project) => normalizeProject(project))
+          .filter((project): project is Project => project !== null);
+        setProjects(normalized);
       } else if (data.error) {
         console.error("API returned error:", data.error);
         setProjects([]);
@@ -143,7 +190,7 @@ export default function AdminPage() {
       challenge: project.challenge,
       solution: project.solution,
       results: project.results,
-      technologies: project.technologies,
+      technologies: normalizeTechnologies(project.technologies),
       sector: project.sector,
       image: project.image || "",
       featured: project.featured,
