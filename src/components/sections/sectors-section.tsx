@@ -1,40 +1,53 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Building2,
+  FileText,
+  Factory,
+  Briefcase,
+  HardHat,
+  Zap,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Building2, HardHat, Building, Factory, Landmark, Shield } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 const sectors = [
   {
     icon: HardHat,
-    title: "Mechanical & Electrical Contracting",
-    description: "Multi-trade bid assembly, material takeoff automation, and subcontractor scope generation from architectural plans.",
-  },
-  {
-    icon: Building,
-    title: "Civil Engineering & Infrastructure",
-    description: "Large-scale public bid management, prevailing wage compliance automation, and multi-phase project estimation.",
+    title: "Construction & Contracting",
+    description:
+      "Proposal automation, bid assembly, and estimation systems for MEP, civil, and general contractors.",
   },
   {
     icon: Factory,
-    title: "Manufacturing & Industrial Equipment",
-    description: "Configure-price-quote systems for custom fabrication, integrating bill-of-materials logic with margin management.",
+    title: "Manufacturing & Industrial",
+    description:
+      "CPQ systems, quote automation, and production workflow tools for custom fabrication and equipment.",
   },
   {
     icon: Building2,
-    title: "Commercial Real Estate & Construction",
-    description: "Tenant improvement estimation, change order tracking, and GC bid comparison automation.",
+    title: "Professional Services",
+    description:
+      "SOW automation, proposal generation, and client-facing document systems for consultancies and agencies.",
   },
   {
-    icon: Landmark,
-    title: "Government & Defense Procurement",
-    description: "RFP response automation, compliance matrix generation, and technical volume assembly for federal contracting.",
+    icon: Briefcase,
+    title: "Enterprise Operations",
+    description:
+      "Internal tools, approval workflows, and process automation for complex business operations.",
   },
   {
-    icon: Shield,
-    title: "Enterprise Technology Services",
-    description: "Complex service cataloging, SOW automation, and professional services estimation for technology integrators.",
+    icon: FileText,
+    title: "Document-Heavy Industries",
+    description:
+      "Any industry drowning in PDFs, spreadsheets, and manual document processing workflows.",
+  },
+  {
+    icon: Zap,
+    title: "AI-Ready Businesses",
+    description:
+      "Organizations ready to move beyond chatbots and implement real AI-powered process improvements.",
   },
 ];
 
@@ -53,12 +66,16 @@ export function SectorsSection() {
             <Building2 className="w-3.5 h-3.5 mr-2 text-primary" />
             Applicability
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Sector Applications</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Where AI Meets Real Work
+          </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            The Forge Engine's modular design has direct applications across any sector where complex estimation, document-heavy workflows, and institutional knowledge create operational bottlenecks.
+            I build systems for industries where document-heavy workflows,
+            complex processes, and skilled labor create bottlenecks that AI can
+            solve.
           </p>
         </motion.div>
-        
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
           {sectors.map((sector, index) => (
             <motion.div

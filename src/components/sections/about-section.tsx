@@ -1,34 +1,84 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  User,
+  CheckCircle2,
+  XCircle,
+  Code,
+  Brain,
+  Layers,
+  Database,
+  Cloud,
+  FileText,
+  Settings,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { User, CheckCircle2, XCircle, Shield, Lock, Server, Users, HardHat, Factory, Building2 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 const rightFit = [
-  "Your most critical business logic lives in the heads of 2–3 senior employees.",
-  "You're generating six- and seven-figure proposals on spreadsheets.",
-  "Your RFP response process is measured in days or weeks.",
-  "You need a system that works for the team you have today.",
+  "You have manual processes eating up hours of skilled people's time.",
+  "You're drowning in documents, spreadsheets, and disconnected workflows.",
+  "You need AI that actually works in production, not just demos.",
+  "You want to ship fast without sacrificing quality.",
 ];
 
 const notRightFit = [
-  "Early-stage startup looking for an MVP.",
-  "Basic website, CRM, or off-the-shelf SaaS integration.",
-  "You want to replace your team. I build systems that multiply your team.",
+  "You just need a basic website or landing page.",
+  "You're looking for off-the-shelf SaaS integration.",
+  "You want a chatbot slapped onto your homepage.",
 ];
 
-const verticals = [
-  { icon: HardHat, title: "Construction / MEP Estimators", focus: "Multi-trade bid assembly, material takeoff, prevailing wage compliance" },
-  { icon: Factory, title: "Manufacturing CPQ & Quoting", focus: "Configure-price-quote systems, bill-of-materials logic, margin management" },
-  { icon: Building2, title: "Sports & Venue Systems", focus: "Complex specifications, technical integrations, high-value project estimation" },
+const techStack = [
+  { icon: Code, title: "Frontend", items: "React, Next.js, TypeScript" },
+  {
+    icon: Database,
+    title: "Backend",
+    items: "Python, FastAPI, Prisma, Node.js",
+  },
+  {
+    icon: Brain,
+    title: "AI/ML",
+    items: "LLM integrations, Vision models, RAG",
+  },
+  {
+    icon: FileText,
+    title: "Document Processing",
+    items: "PDF parsing, OCR, Classification",
+  },
+  {
+    icon: Cloud,
+    title: "Infrastructure",
+    items: "Cloud deployment, API architecture",
+  },
+  { icon: Layers, title: "Data", items: "Database design, ETL pipelines" },
 ];
 
-const security = [
-  { icon: Shield, title: "Environment Isolation", description: "Dedicated infrastructure per client. No shared tenancy." },
-  { icon: Lock, title: "Mandatory Review Gates", description: "All AI outputs require human approval before client delivery." },
-  { icon: Users, title: "Role-Based Access", description: "Granular RBAC with audit logging on every action." },
-  { icon: Server, title: "Flexible Deployment", description: "Your cloud, private hosting, or managed environment." },
+const whatIBuild = [
+  {
+    icon: FileText,
+    title: "Proposal & Quote Automation",
+    description:
+      "Systems that take complex pricing spreadsheets and output polished, branded PDF proposals. No more copy-paste marathons between Excel and Word.",
+  },
+  {
+    icon: Brain,
+    title: "RFP Intelligence Platforms",
+    description:
+      "AI-powered tools that digest massive specification documents, extract relevant requirements using vision models, and surface what teams need to build accurate quotes fast.",
+  },
+  {
+    icon: Layers,
+    title: "Document Processing Pipelines",
+    description:
+      "End-to-end systems that take unstructured inputs — architectural drawings, scanned PDFs, messy spreadsheets — then classify, extract, and structure the data.",
+  },
+  {
+    icon: Settings,
+    title: "Internal Tools & Dashboards",
+    description:
+      "Custom platforms that give teams visibility into their workflows, automate approval chains, and eliminate the back-and-forth that kills productivity.",
+  },
 ];
 
 export function AboutSection() {
@@ -46,7 +96,12 @@ export function AboutSection() {
             <User className="w-3.5 h-3.5 mr-2 text-primary" />
             About
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Who This Is For</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">What I Do</h2>
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+            I sit at the intersection of AI engineering and business process
+            automation. I build tools that survive contact with real users and
+            real data.
+          </p>
         </motion.div>
 
         <motion.div
@@ -56,30 +111,38 @@ export function AboutSection() {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h3 className="text-xl font-semibold mb-6 text-center">Best Fit Verticals</h3>
-          <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            {verticals.map((vertical, index) => (
+          <h3 className="text-xl font-semibold mb-6 text-center">
+            What I Build
+          </h3>
+          <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+            {whatIBuild.map((item, index) => (
               <motion.div
-                key={vertical.title}
+                key={item.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card className="h-full bg-card/50 border-border/50 hover:border-primary/30 transition-colors text-center">
+                <Card className="h-full bg-card/50 border-border/50 hover:border-primary/30 transition-colors">
                   <CardContent className="p-5">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                      <vertical.icon className="h-6 w-6 text-primary" />
+                    <div className="flex items-start gap-4">
+                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                        <item.icon className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold mb-2">{item.title}</h4>
+                        <p className="text-sm text-muted-foreground">
+                          {item.description}
+                        </p>
+                      </div>
                     </div>
-                    <h4 className="font-semibold mb-2">{vertical.title}</h4>
-                    <p className="text-sm text-muted-foreground">{vertical.focus}</p>
                   </CardContent>
                 </Card>
               </motion.div>
             ))}
           </div>
         </motion.div>
-        
+
         <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -91,7 +154,9 @@ export function AboutSection() {
               <CardContent className="p-6">
                 <div className="flex items-center gap-2 mb-5">
                   <CheckCircle2 className="h-5 w-5 text-green-500" />
-                  <h3 className="text-lg font-semibold">You're the right fit if...</h3>
+                  <h3 className="text-lg font-semibold">
+                    You&apos;re the right fit if...
+                  </h3>
                 </div>
                 <ul className="space-y-3">
                   {rightFit.map((item, index) => (
@@ -100,18 +165,20 @@ export function AboutSection() {
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: index * 0.05 }}
-                      className="flex items-start gap-3 text-sm text-muted-foreground"
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      className="flex items-start gap-3"
                     >
-                      <span className="text-primary mt-0.5">•</span>
-                      {item}
+                      <div className="h-1.5 w-1.5 rounded-full bg-green-500 mt-2 shrink-0" />
+                      <span className="text-sm text-muted-foreground">
+                        {item}
+                      </span>
                     </motion.li>
                   ))}
                 </ul>
               </CardContent>
             </Card>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -122,7 +189,9 @@ export function AboutSection() {
               <CardContent className="p-6">
                 <div className="flex items-center gap-2 mb-5">
                   <XCircle className="h-5 w-5 text-red-400" />
-                  <h3 className="text-lg font-semibold">I'm not the right fit if...</h3>
+                  <h3 className="text-lg font-semibold">
+                    Not the right fit if...
+                  </h3>
                 </div>
                 <ul className="space-y-3">
                   {notRightFit.map((item, index) => (
@@ -131,11 +200,13 @@ export function AboutSection() {
                       initial={{ opacity: 0, x: 10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: index * 0.05 }}
-                      className="flex items-start gap-3 text-sm text-muted-foreground"
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      className="flex items-start gap-3"
                     >
-                      <span className="text-red-400 mt-0.5">•</span>
-                      {item}
+                      <div className="h-1.5 w-1.5 rounded-full bg-red-400 mt-2 shrink-0" />
+                      <span className="text-sm text-muted-foreground">
+                        {item}
+                      </span>
                     </motion.li>
                   ))}
                 </ul>
@@ -143,54 +214,31 @@ export function AboutSection() {
             </Card>
           </motion.div>
         </div>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl mx-auto mb-16"
-        >
-          <Card className="bg-card border-border/50">
-            <CardContent className="p-8">
-              <h3 className="text-xl font-semibold mb-4">The Backstory</h3>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                I didn't start in software. I started in operations — managing teams, building recruiting pipelines, and running the day-to-day of companies that moved too fast to document their own processes. I watched brilliant businesses nearly collapse because their most valuable asset wasn't on the balance sheet. It was in someone's head.
-              </p>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                That's what pulled me into engineering. Not the technology itself, but the problem: how do you capture the way a business actually works — the shortcuts, the exceptions, the judgment calls — and turn it into infrastructure that scales?
-              </p>
-              <p className="text-foreground font-medium italic">
-                I don't build software that looks like it should work. I build software that works the way your business actually operates.
-              </p>
-            </CardContent>
-          </Card>
-        </motion.div>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h3 className="text-xl font-semibold mb-6 text-center">Infrastructure & Security</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-            {security.map((item, index) => (
+          <h3 className="text-xl font-semibold mb-6 text-center">
+            Technical Toolkit
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 max-w-5xl mx-auto">
+            {techStack.map((tech, index) => (
               <motion.div
-                key={item.title}
+                key={tech.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
               >
-                <Card className="h-full bg-card/50 border-border/50 text-center">
-                  <CardContent className="p-5">
-                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                      <item.icon className="h-5 w-5 text-primary" />
-                    </div>
-                    <h4 className="font-medium mb-1 text-sm">{item.title}</h4>
-                    <p className="text-muted-foreground text-xs leading-relaxed">
-                      {item.description}
+                <Card className="bg-card/50 border-border/50 hover:border-primary/30 transition-colors text-center">
+                  <CardContent className="p-4">
+                    <tech.icon className="h-5 w-5 text-primary mx-auto mb-2" />
+                    <p className="text-xs font-medium mb-1">{tech.title}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {tech.items}
                     </p>
                   </CardContent>
                 </Card>

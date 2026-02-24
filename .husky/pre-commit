@@ -1,9 +1,8 @@
 #!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
 
-# Run zero bullshit check first
+# Run zero bullshit check first (only on staged files)
 echo "🔍 Running ZERO BULLSHIT check..."
-node .husky/zero-bullshit-check.js
+node .husky/zero-bullshit-check.js $(git diff --cached --name-only --diff-filter=ACM)
 
 # Run lint-staged
 echo "🔧 Running lint-staged..."

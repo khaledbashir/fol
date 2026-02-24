@@ -1,39 +1,46 @@
 "use client";
 
 import { motion } from "framer-motion";
+import {
+  FileText,
+  Brain,
+  Layers,
+  Settings,
+  BarChart3,
+  Zap,
+} from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calculator, FileCheck, Layout, Search, BarChart3, Briefcase } from "lucide-react";
 
 const solutions = [
   {
-    icon: Calculator,
-    title: "Complex Estimating Engines",
-    outcome: "Junior staff generates accurate $5M+ proposals in under an hour",
+    icon: FileText,
+    title: "Proposal & Quote Automation",
+    outcome: "Complex spreadsheets → polished PDF proposals in minutes",
   },
   {
-    icon: FileCheck,
-    title: "Automated SOW Validation",
-    outcome: "Compliance checks catch risks before human review",
+    icon: Brain,
+    title: "RFP Intelligence",
+    outcome: "Thousands of pages → actionable requirements instantly",
   },
   {
-    icon: Layout,
-    title: "Legacy Workflow Mirroring",
-    outcome: "Zero training required. Adoption happens invisibly.",
+    icon: Layers,
+    title: "Document Processing Pipelines",
+    outcome: "Unstructured inputs → clean, structured data",
   },
   {
-    icon: Search,
-    title: "RFP Intelligence & Triage",
-    outcome: "Days of manual review reduced to minutes",
+    icon: Settings,
+    title: "Internal Tools & Dashboards",
+    outcome: "Manual workflows → automated systems",
   },
   {
     icon: BarChart3,
-    title: "Executive ROI Dashboards",
-    outcome: "Continuous financial justification for leadership",
+    title: "AI Integration & Consulting",
+    outcome: "Real process improvements, not hype",
   },
   {
-    icon: Briefcase,
-    title: "Custom Enterprise Platforms",
-    outcome: "Purpose-built for your exact operational reality",
+    icon: Zap,
+    title: "Custom AI Applications",
+    outcome: "Purpose-built solutions for your exact needs",
   },
 ];
 
@@ -50,10 +57,11 @@ export function SolutionsSection() {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">What I Build</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Purpose-built enterprise systems that solve real operational bottlenecks.
+            AI-powered systems where intelligent automation meets real business
+            processes.
           </p>
         </motion.div>
-        
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
           {solutions.map((solution, index) => (
             <motion.div

@@ -1,38 +1,53 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
+import { GitBranch, Eye, Map, Rocket, MessageSquare } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { GitBranch, Eye, Map, Rocket, Calendar } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 const steps = [
   {
+    icon: MessageSquare,
+    title: "Problem Discovery",
+    description:
+      "We start with a conversation about your workflow. Where are the bottlenecks? What's eating up time? What would move the needle? I need to understand the problem before proposing a solution.",
+  },
+  {
     icon: Eye,
-    title: "Passive Logic Extraction",
-    description: "I analyze existing workflows, past proposals, and legacy workbooks to reverse-engineer your pricing logic before I ask your team a single question. By the time I engage your experts, I already understand 80% of their process.",
+    title: "Rapid Assessment",
+    description:
+      "I analyze your existing workflows, documents, and systems. Often I can identify automation opportunities you haven't seen because you're too close to the process.",
   },
   {
     icon: Map,
-    title: "The Parameter Map",
-    description: "I present pre-populated logic structures built from my extraction work, asking experts to confirm or correct. This reduces a 40-hour documentation effort to a 2-hour verification session.",
+    title: "Scope & Build",
+    description:
+      "I define exactly what I'll build, then build it. You get working software fast — not wireframes, not slide decks, not endless meetings. Working code.",
   },
   {
     icon: Rocket,
-    title: "Silent Deployment",
-    description: "Every platform deploys in parallel to existing workflows. Teams run both systems side-by-side, verifying accuracy in real conditions. No hard cutover. Adoption happens without a single change management meeting.",
+    title: "Deploy & Iterate",
+    description:
+      "I deploy to production and iterate based on real usage. No big reveals. No months of development in a vacuum. Ship, learn, improve.",
   },
 ];
 
 const timeline = [
-  { phase: "Sprint", duration: "Week 1-2", description: "Logic extraction, parameter map, risk assessment" },
-  { phase: "Pilot", duration: "Week 3-4", description: "Deploy in parallel, validate outputs with real work" },
-  { phase: "Rollout", duration: "Week 5-6", description: "Full deployment, training, documentation" },
-];
-
-const failureModes = [
-  "Bad extraction — missing critical edge cases",
-  "Hallucinated clauses in generated documents",
-  "Pricing drift from inconsistent logic application",
+  {
+    phase: "Discovery",
+    duration: "Days",
+    description: "Understand the problem, assess feasibility",
+  },
+  {
+    phase: "Build",
+    duration: "Weeks",
+    description: "Develop, test, and deploy working solution",
+  },
+  {
+    phase: "Iterate",
+    duration: "Ongoing",
+    description: "Refine based on real-world usage",
+  },
 ];
 
 export function MethodologySection() {
@@ -48,21 +63,24 @@ export function MethodologySection() {
         >
           <Badge variant="outline" className="mb-4 px-4 py-1 border-primary/30">
             <GitBranch className="w-3.5 h-3.5 mr-2 text-primary" />
-            The Methodology
+            Process
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Shadow Engineering</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            From Problem to Solution
+          </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-2">
-            I extract logic without disrupting your operators.
+            A straightforward process that delivers results.
           </p>
           <p className="text-muted-foreground max-w-3xl mx-auto">
-            No months of discovery workshops. I work in the background, capturing how your business actually works.
+            No months of discovery workshops. No endless meetings. I focus on
+            understanding your problem and building a solution that works.
           </p>
         </motion.div>
-        
+
         <div className="max-w-4xl mx-auto mb-16">
           <div className="relative">
             <div className="absolute left-8 top-0 bottom-0 w-px bg-border/50 hidden md:block" />
-            
+
             {steps.map((step, index) => (
               <motion.div
                 key={step.title}
@@ -86,7 +104,9 @@ export function MethodologySection() {
                           Step {index + 1}
                         </span>
                       </div>
-                      <h3 className="text-lg font-semibold mb-3">{step.title}</h3>
+                      <h3 className="text-lg font-semibold mb-3">
+                        {step.title}
+                      </h3>
                       <p className="text-muted-foreground text-sm leading-relaxed">
                         {step.description}
                       </p>
@@ -103,43 +123,25 @@ export function MethodologySection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto mb-16"
         >
-          <h3 className="text-xl font-semibold mb-6 text-center flex items-center justify-center gap-2">
-            <Calendar className="h-5 w-5 text-primary" />
-            Typical Timeline
-          </h3>
-          <div className="grid md:grid-cols-3 gap-4">
-            {timeline.map((item) => (
-              <Card key={item.phase} className="bg-card/50 border-border/50">
-                <CardContent className="p-5 text-center">
-                  <Badge variant="outline" className="mb-2">{item.duration}</Badge>
-                  <h4 className="font-semibold mb-1">{item.phase}</h4>
-                  <p className="text-sm text-muted-foreground">{item.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="max-w-2xl mx-auto"
-        >
-          <h3 className="text-xl font-semibold mb-4 text-center">Common Failure Modes I Prevent</h3>
-          <Card className="bg-card/50 border-border/50">
+          <Card className="max-w-3xl mx-auto bg-card/50 border-border/50">
             <CardContent className="p-6">
-              <ul className="space-y-3">
-                {failureModes.map((mode, index) => (
-                  <li key={index} className="flex items-start gap-3 text-sm">
-                    <span className="text-red-400 mt-0.5">✕</span>
-                    <span className="text-muted-foreground">{mode}</span>
-                  </li>
+              <h3 className="text-lg font-semibold mb-4 text-center">
+                Typical Timeline
+              </h3>
+              <div className="grid md:grid-cols-3 gap-4">
+                {timeline.map(item => (
+                  <div key={item.phase} className="text-center">
+                    <p className="text-xs text-muted-foreground mb-1">
+                      {item.duration}
+                    </p>
+                    <p className="font-semibold text-primary">{item.phase}</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {item.description}
+                    </p>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </CardContent>
           </Card>
         </motion.div>

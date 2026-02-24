@@ -14,13 +14,12 @@ const eslintConfig = defineConfig([
     rules: {
       // Prettier integration
       "prettier/prettier": "error",
-      
+
       // TypeScript specific rules
       "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-      "@typescript-eslint/prefer-const": "error",
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/no-non-null-assertion": "warn",
-      
+
       // General JavaScript/TypeScript rules
       "no-console": "warn",
       "no-debugger": "error",
@@ -30,12 +29,12 @@ const eslintConfig = defineConfig([
       "prefer-arrow-callback": "error",
       "arrow-spacing": "error",
       "no-duplicate-imports": "error",
-      
+
       // React specific rules
       "react/prop-types": "off", // Not needed with TypeScript
       "react/react-in-jsx-scope": "off", // Not needed in Next.js
       "react-hooks/exhaustive-deps": "warn",
-      
+
       // Best practices
       "eqeqeq": ["error", "always"],
       "curly": ["error", "all"],
@@ -43,7 +42,7 @@ const eslintConfig = defineConfig([
       "no-implied-eval": "error",
       "no-new-func": "error",
       "no-script-url": "error",
-      
+
       // Import/Export rules
       "import/order": [
         "error",

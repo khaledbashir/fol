@@ -1,45 +1,41 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
+import { GitBranch, Zap, Target, Brain, Layers, Settings } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { 
-  GitBranch, 
-  Zap, 
-  Target, 
-  Brain,
-  Layers,
-  Settings,
-  CheckCircle2
-} from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 const execution = [
   {
-    icon: GitBranch,
-    title: "Document Intelligence Engine",
-    description: "Ingestion pipeline that reads hundreds of pages of bid documents, RFPs, and specifications — automatically extracting requirements, technical parameters, and risk factors.",
-  },
-  {
     icon: Brain,
-    title: "Intelligent Estimation System",
-    description: "Guided workflow that distills decades of weight-based, square-footage, and conditional pricing logic into a system any estimator can operate.",
+    title: "Document Intelligence Engine",
+    description:
+      "AI pipeline that reads hundreds of pages of specifications, RFPs, and technical documents — automatically extracting requirements and parameters.",
   },
   {
     icon: Layers,
     title: "Smart Component Bundler",
-    description: "AI-powered guardrail that automatically recommends required ancillary components based on primary configuration — preventing thousands in forgotten line items.",
+    description:
+      "AI-powered system that automatically recommends required components based on primary configuration — preventing costly omissions.",
   },
   {
     icon: Settings,
-    title: "Legacy Workflow Integration",
-    description: "For senior staff who prefer existing workflows, the system reads their workbooks directly and generates client-ready deliverables without any interface change.",
+    title: "Workflow Integration",
+    description:
+      "For teams who prefer existing workflows, the system reads their workbooks directly and generates deliverables without interface change.",
+  },
+  {
+    icon: GitBranch,
+    title: "Production Deployment",
+    description:
+      "Deployed in parallel to existing processes. Teams verify accuracy in real conditions before full adoption.",
   },
 ];
 
 const results = [
-  { label: "Knowledge", value: "20+ yrs", detail: "Logic institutionalized" },
-  { label: "Speed", value: "<1 hr", detail: "From 3-5 days" },
+  { label: "Time", value: "<1 hr", detail: "From 3-5 days" },
   { label: "Errors", value: "0%", detail: "From 10-15%" },
+  { label: "Knowledge", value: "Captured", detail: "Not lost" },
   { label: "Timeline", value: "Weeks", detail: "Not months" },
 ];
 
@@ -57,11 +53,14 @@ export function CaseStudySection() {
         >
           <Badge variant="outline" className="mb-4 px-4 py-1 border-primary/30">
             <Target className="w-3.5 h-3.5 mr-2 text-primary" />
-            Representative Engagement
+            Case Study
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Sports Venue Systems Integrator</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Proposal Automation System
+          </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            $100M+ revenue · 20+ years of tribal knowledge · 3-5 day proposal cycle
+            AI-powered proposal generation · Document intelligence · Workflow
+            automation
           </p>
         </motion.div>
 
@@ -79,10 +78,15 @@ export function CaseStudySection() {
                 The Challenge
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                A systems integrator for sports venues and large-scale facilities had built significant revenue on a fragile foundation: massive Excel workbooks, isolated templates, and deeply guarded tribal knowledge held by a handful of senior estimators.
+                A company had built significant revenue on a fragile foundation:
+                massive Excel workbooks, isolated templates, and deeply guarded
+                tribal knowledge held by a handful of senior staff.
               </p>
               <p className="text-muted-foreground mt-4 leading-relaxed">
-                Generating a single high-value proposal required days of manual work. Pricing logic existed only in key personnel's heads. The company faced existential risk: if those people left, the knowledge walked out the door.
+                Generating a single high-value proposal required days of manual
+                work. Critical logic existed only in key personnel&apos;s heads.
+                The company faced existential risk: if those people left, the
+                knowledge walked out the door.
               </p>
             </CardContent>
           </Card>
@@ -95,57 +99,63 @@ export function CaseStudySection() {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="mb-8"
         >
-          <h3 className="text-xl font-semibold mb-6 text-center">Measurable Impact</h3>
+          <h3 className="text-xl font-semibold mb-6 text-center">
+            Measurable Impact
+          </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
             {results.map((result, index) => (
               <motion.div
                 key={result.label}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
               >
-                <Card className="bg-card border-border/50 text-center h-full">
-                  <CardContent className="p-5">
-                    <CheckCircle2 className="h-5 w-5 text-primary mx-auto mb-2" />
-                    <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">
+                <Card className="bg-card border-border/50 text-center">
+                  <CardContent className="p-4">
+                    <p className="text-xs text-muted-foreground mb-1">
                       {result.label}
                     </p>
-                    <p className="text-2xl font-bold text-foreground mb-1">{result.value}</p>
-                    <p className="text-xs text-muted-foreground">{result.detail}</p>
+                    <p className="text-2xl font-bold text-primary">
+                      {result.value}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {result.detail}
+                    </p>
                   </CardContent>
                 </Card>
               </motion.div>
             ))}
           </div>
         </motion.div>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-8"
         >
-          <h3 className="text-xl font-semibold mb-6 text-center">The Execution</h3>
-          <div className="grid md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+          <h3 className="text-xl font-semibold mb-6 text-center">
+            System Components
+          </h3>
+          <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
             {execution.map((item, index) => (
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
               >
-                <Card className="h-full bg-card/50 border-border/50 hover:border-primary/30 transition-colors group">
+                <Card className="bg-card border-border/50 h-full">
                   <CardContent className="p-5">
-                    <div className="flex items-start gap-3">
-                      <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                        <item.icon className="h-4.5 w-4.5 text-primary" />
+                    <div className="flex items-start gap-4">
+                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                        <item.icon className="h-5 w-5 text-primary" />
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-1">{item.title}</h4>
-                        <p className="text-muted-foreground text-sm leading-relaxed">
+                        <h4 className="font-semibold mb-2">{item.title}</h4>
+                        <p className="text-sm text-muted-foreground">
                           {item.description}
                         </p>
                       </div>

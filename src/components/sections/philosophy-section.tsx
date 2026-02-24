@@ -1,24 +1,33 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Lightbulb, Users, Gauge, Code } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Lightbulb, Users, Gauge } from "lucide-react";
 
 const principles = [
   {
     icon: Lightbulb,
-    title: "Operational Architecture Over Feature Lists",
-    description: "I identify structural bottlenecks — where knowledge gets hoarded, where handoffs break down, where errors compound — and architect systems that bypass legacy constraints entirely.",
+    title: "Real Problems, Not Hype",
+    description:
+      "I don't build chatbots for the sake of having AI. I identify where AI actually solves problems — document processing, workflow automation, decision support — and build only what delivers value.",
   },
   {
     icon: Users,
-    title: "Human-Centric Adoption",
-    description: "Employees reject software that asks them to think differently. My interfaces mirror existing mental models. If your senior estimator can use Excel, he can use what I build — on day one, without training.",
+    title: "Built for Real Users",
+    description:
+      "The best AI tool is worthless if nobody uses it. I build interfaces that fit how people actually work. If your team can use a spreadsheet, they can use what I build — on day one.",
   },
   {
     icon: Gauge,
-    title: "Zero-Surprise Outputs",
-    description: "Understated UI. Fast throughput. Every platform I build is engineered for immediate output. No feature bloat. No gratuitous UI. Clean logic, clean results.",
+    title: "Ship Fast, Ship Working",
+    description:
+      "I use AI tooling aggressively in my own workflow. That means I move at a speed that surprises people used to traditional dev shops. Working software, delivered fast.",
+  },
+  {
+    icon: Code,
+    title: "Production-Grade Code",
+    description:
+      "No prototypes dressed up as products. Everything I build is engineered for real use — proper error handling, testing, documentation, and maintainability.",
   },
 ];
 
@@ -33,12 +42,13 @@ export function PhilosophySection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Most Enterprise AI Fails</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">How I Work</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            The reason is never the code. It's the people.
+            I operate as a one-person product team — scoping, building,
+            deploying, and iterating directly with stakeholders.
           </p>
         </motion.div>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -47,11 +57,12 @@ export function PhilosophySection() {
           className="max-w-3xl mx-auto mb-16 text-center"
         >
           <p className="text-muted-foreground leading-relaxed">
-            Before I engineered AI systems, I spent a decade in operations, recruiting, and SaaS product leadership. I've watched six-figure platforms collect dust because nobody asked the forty-year veteran estimator how he actually thinks.
+            I communicate directly, I ship fast, and I treat your problem like
+            my problem. No account managers, no handoffs, no lost context.
           </p>
         </motion.div>
-        
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {principles.map((principle, index) => (
             <motion.div
               key={principle.title}
@@ -65,7 +76,9 @@ export function PhilosophySection() {
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
                     <principle.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-3">{principle.title}</h3>
+                  <h3 className="text-lg font-semibold mb-3">
+                    {principle.title}
+                  </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
                     {principle.description}
                   </p>
