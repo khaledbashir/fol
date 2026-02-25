@@ -85,10 +85,10 @@ export function SectorsSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
             >
-              <Card className="h-full bg-card/50 border-border/50 hover:border-primary/30 transition-all duration-300 group cursor-default">
+              <Card className="h-full bg-card/50 border-border/50 hover:border-[var(--cyan)]/30 transition-all duration-300 group cursor-default">
                 <CardContent className="p-5">
-                  <div className="h-11 w-11 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                    <sector.icon className="h-5 w-5 text-primary" />
+                  <div className="h-11 w-11 rounded-lg bg-[var(--cyan)]/10 flex items-center justify-center mb-4 group-hover:bg-[var(--cyan)]/20 transition-colors">
+                    <sector.icon className="h-5 w-5 text-[var(--cyan)]" />
                   </div>
                   <h3 className="font-semibold mb-2">{sector.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">

@@ -49,71 +49,102 @@
 
 :root {
   --radius: 0.5rem;
-  --background: oklch(0.12 0.005 270);
-  --foreground: oklch(0.95 0.01 270);
-  --card: oklch(0.15 0.008 270);
-  --card-foreground: oklch(0.95 0.01 270);
-  --popover: oklch(0.15 0.008 270);
-  --popover-foreground: oklch(0.95 0.01 270);
-  --primary: oklch(0.7 0.15 250);
+
+  /* Midnight Systems Palette */
+  --background: oklch(0.08 0.01 270); /* Void - Near-black, deep space */
+  --foreground: oklch(
+    0.93 0.02 270
+  ); /* Ghost White - Crisp, slight blue cast */
+  --card: oklch(0.12 0.02 270); /* Obsidian - Lifted dark layer */
+  --card-foreground: oklch(0.93 0.02 270);
+  --popover: oklch(0.12 0.02 270);
+  --popover-foreground: oklch(0.93 0.02 270);
+
+  /* Primary - Electric Indigo */
+  --primary: oklch(0.58 0.2 270);
   --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.22 0.01 270);
-  --secondary-foreground: oklch(0.95 0.01 270);
-  --muted: oklch(0.22 0.01 270);
-  --muted-foreground: oklch(0.6 0.02 270);
-  --accent: oklch(0.25 0.02 270);
-  --accent-foreground: oklch(0.95 0.01 270);
-  --destructive: oklch(0.55 0.22 25);
-  --border: oklch(0.25 0.015 270);
-  --input: oklch(0.22 0.015 270);
-  --ring: oklch(0.7 0.15 250);
-  --chart-1: oklch(0.7 0.15 250);
-  --chart-2: oklch(0.65 0.12 180);
-  --chart-3: oklch(0.6 0.1 50);
+
+  /* Secondary - Slate Smoke */
+  --secondary: oklch(0.18 0.03 270);
+  --secondary-foreground: oklch(0.93 0.02 270);
+
+  /* Muted */
+  --muted: oklch(0.15 0.02 270);
+  --muted-foreground: oklch(0.55 0.05 270); /* Lavender Ash */
+
+  /* Accent */
+  --accent: oklch(0.18 0.03 270);
+  --accent-foreground: oklch(0.93 0.02 270);
+
+  /* Destructive */
+  --destructive: oklch(0.55 0.2 25);
+
+  /* Borders - Slate Smoke */
+  --border: oklch(0.18 0.03 270);
+  --input: oklch(0.15 0.02 270);
+  --ring: oklch(0.58 0.2 270); /* Electric Indigo */
+
+  /* Charts - Palette aligned */
+  --chart-1: oklch(0.58 0.2 270); /* Electric Indigo */
+  --chart-2: oklch(0.75 0.15 180); /* Neon Cyan */
+  --chart-3: oklch(0.68 0.2 40); /* Cairo Ember */
   --chart-4: oklch(0.55 0.15 320);
   --chart-5: oklch(0.5 0.12 90);
-  --sidebar: oklch(0.1 0.005 270);
-  --sidebar-foreground: oklch(0.95 0.01 270);
-  --sidebar-primary: oklch(0.7 0.15 250);
+
+  /* Sidebar - Deeper void */
+  --sidebar: oklch(0.06 0.01 270);
+  --sidebar-foreground: oklch(0.93 0.02 270);
+  --sidebar-primary: oklch(0.58 0.2 270);
   --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.2 0.015 270);
-  --sidebar-accent-foreground: oklch(0.95 0.01 270);
-  --sidebar-border: oklch(0.2 0.015 270);
-  --sidebar-ring: oklch(0.7 0.15 250);
+  --sidebar-accent: oklch(0.15 0.02 270);
+  --sidebar-accent-foreground: oklch(0.93 0.02 270);
+  --sidebar-border: oklch(0.15 0.02 270);
+  --sidebar-ring: oklch(0.58 0.2 270);
+
+  /* Custom Accent Colors */
+  --cyan: oklch(0.75 0.15 180); /* Neon Cyan - Data, automation, precision */
+  --cyan-foreground: oklch(0.08 0.01 270);
+  --ember: oklch(0.68 0.2 40); /* Cairo Ember - Energy, CTAs, highlights */
+  --ember-foreground: oklch(0.98 0 0);
 }
 
 .dark {
-  --background: oklch(0.12 0.005 270);
-  --foreground: oklch(0.95 0.01 270);
-  --card: oklch(0.15 0.008 270);
-  --card-foreground: oklch(0.95 0.01 270);
-  --popover: oklch(0.15 0.008 270);
-  --popover-foreground: oklch(0.95 0.01 270);
-  --primary: oklch(0.7 0.15 250);
+  /* Midnight Systems Palette - Dark Mode (same as root) */
+  --background: oklch(0.08 0.01 270);
+  --foreground: oklch(0.93 0.02 270);
+  --card: oklch(0.12 0.02 270);
+  --card-foreground: oklch(0.93 0.02 270);
+  --popover: oklch(0.12 0.02 270);
+  --popover-foreground: oklch(0.93 0.02 270);
+  --primary: oklch(0.58 0.2 270);
   --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.22 0.01 270);
-  --secondary-foreground: oklch(0.95 0.01 270);
-  --muted: oklch(0.22 0.01 270);
-  --muted-foreground: oklch(0.6 0.02 270);
-  --accent: oklch(0.25 0.02 270);
-  --accent-foreground: oklch(0.95 0.01 270);
-  --destructive: oklch(0.55 0.22 25);
-  --border: oklch(0.25 0.015 270);
-  --input: oklch(0.22 0.015 270);
-  --ring: oklch(0.7 0.15 250);
-  --chart-1: oklch(0.7 0.15 250);
-  --chart-2: oklch(0.65 0.12 180);
-  --chart-3: oklch(0.6 0.1 50);
+  --secondary: oklch(0.18 0.03 270);
+  --secondary-foreground: oklch(0.93 0.02 270);
+  --muted: oklch(0.15 0.02 270);
+  --muted-foreground: oklch(0.55 0.05 270);
+  --accent: oklch(0.18 0.03 270);
+  --accent-foreground: oklch(0.93 0.02 270);
+  --destructive: oklch(0.55 0.2 25);
+  --border: oklch(0.18 0.03 270);
+  --input: oklch(0.15 0.02 270);
+  --ring: oklch(0.58 0.2 270);
+  --chart-1: oklch(0.58 0.2 270);
+  --chart-2: oklch(0.75 0.15 180);
+  --chart-3: oklch(0.68 0.2 40);
   --chart-4: oklch(0.55 0.15 320);
   --chart-5: oklch(0.5 0.12 90);
-  --sidebar: oklch(0.1 0.005 270);
-  --sidebar-foreground: oklch(0.95 0.01 270);
-  --sidebar-primary: oklch(0.7 0.15 250);
+  --sidebar: oklch(0.06 0.01 270);
+  --sidebar-foreground: oklch(0.93 0.02 270);
+  --sidebar-primary: oklch(0.58 0.2 270);
   --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.2 0.015 270);
-  --sidebar-accent-foreground: oklch(0.95 0.01 270);
-  --sidebar-border: oklch(0.2 0.015 270);
-  --sidebar-ring: oklch(0.7 0.15 250);
+  --sidebar-accent: oklch(0.15 0.02 270);
+  --sidebar-accent-foreground: oklch(0.93 0.02 270);
+  --sidebar-border: oklch(0.15 0.02 270);
+  --sidebar-ring: oklch(0.58 0.2 270);
+  --cyan: oklch(0.75 0.15 180);
+  --cyan-foreground: oklch(0.08 0.01 270);
+  --ember: oklch(0.68 0.2 40);
+  --ember-foreground: oklch(0.98 0 0);
 }
 
 @layer base {
@@ -134,14 +165,73 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: oklch(0.15 0.008 270);
+  background: oklch(0.08 0.01 270); /* Void */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: oklch(0.3 0.015 270);
+  background: oklch(0.18 0.03 270); /* Slate Smoke */
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.4 0.02 270);
+  background: oklch(0.25 0.03 270);
+}
+
+/* Midnight Systems Utility Classes */
+@layer utilities {
+  /* Neon Cyan - Data, automation, precision */
+  .text-cyan {
+    color: var(--cyan);
+  }
+  .bg-cyan {
+    background-color: var(--cyan);
+  }
+  .border-cyan {
+    border-color: var(--cyan);
+  }
+
+  /* Cairo Ember - Energy, CTAs, highlights */
+  .text-ember {
+    color: var(--ember);
+  }
+  .bg-ember {
+    background-color: var(--ember);
+  }
+  .border-ember {
+    border-color: var(--ember);
+  }
+
+  /* Glow effects for accent colors */
+  .glow-cyan {
+    box-shadow: 0 0 20px oklch(0.75 0.15 180 / 0.3);
+  }
+  .glow-ember {
+    box-shadow: 0 0 20px oklch(0.68 0.2 40 / 0.3);
+  }
+  .glow-indigo {
+    box-shadow: 0 0 20px oklch(0.58 0.2 270 / 0.3);
+  }
+
+  /* Subtle background glows */
+  .bg-glow-cyan {
+    background: radial-gradient(
+      ellipse at center,
+      oklch(0.75 0.15 180 / 0.1) 0%,
+      transparent 70%
+    );
+  }
+  .bg-glow-ember {
+    background: radial-gradient(
+      ellipse at center,
+      oklch(0.68 0.2 40 / 0.1) 0%,
+      transparent 70%
+    );
+  }
+  .bg-glow-indigo {
+    background: radial-gradient(
+      ellipse at center,
+      oklch(0.58 0.2 270 / 0.1) 0%,
+      transparent 70%
+    );
+  }
 }

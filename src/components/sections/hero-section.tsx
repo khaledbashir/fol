@@ -81,9 +81,9 @@ export function HeroSection() {
           >
             {quickProof.map(item => (
               <div key={item.label} className="text-center">
-                <Card className="bg-card/50 border-border/50">
+                <Card className="bg-card/50 border-border/50 hover:border-[var(--cyan)]/30 transition-colors">
                   <CardContent className="p-3">
-                    <item.icon className="h-4 w-4 text-primary mx-auto mb-1" />
+                    <item.icon className="h-4 w-4 text-[var(--cyan)] mx-auto mb-1" />
                     <p className="text-sm font-bold text-foreground">
                       {item.value}
                     </p>
@@ -102,7 +102,11 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button size="lg" className="px-8" asChild>
+            <Button
+              size="lg"
+              className="px-8 bg-[var(--ember)] hover:bg-[var(--ember)]/90 text-[var(--ember-foreground)]"
+              asChild
+            >
               <a href="#projects">View Projects</a>
             </Button>
             <Button size="lg" variant="outline" className="px-8" asChild>

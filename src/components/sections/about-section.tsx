@@ -123,11 +123,11 @@ export function AboutSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card className="h-full bg-card/50 border-border/50 hover:border-primary/30 transition-colors">
+                <Card className="h-full bg-card/50 border-border/50 hover:border-[var(--cyan)]/30 transition-colors">
                   <CardContent className="p-5">
                     <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                        <item.icon className="h-5 w-5 text-primary" />
+                      <div className="h-10 w-10 rounded-lg bg-[var(--cyan)]/10 flex items-center justify-center shrink-0">
+                        <item.icon className="h-5 w-5 text-[var(--cyan)]" />
                       </div>
                       <div>
                         <h4 className="font-semibold mb-2">{item.title}</h4>
@@ -233,9 +233,9 @@ export function AboutSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
               >
-                <Card className="bg-card/50 border-border/50 hover:border-primary/30 transition-colors text-center">
+                <Card className="bg-card/50 border-border/50 hover:border-[var(--cyan)]/30 transition-colors text-center">
                   <CardContent className="p-4">
-                    <tech.icon className="h-5 w-5 text-primary mx-auto mb-2" />
+                    <tech.icon className="h-5 w-5 text-[var(--cyan)] mx-auto mb-2" />
                     <p className="text-xs font-medium mb-1">{tech.title}</p>
                     <p className="text-xs text-muted-foreground">
                       {tech.items}

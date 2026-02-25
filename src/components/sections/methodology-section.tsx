@@ -92,15 +92,15 @@ export function MethodologySection() {
               >
                 <div className="flex gap-6">
                   <div className="hidden md:flex h-16 w-16 rounded-full bg-card border border-border/50 items-center justify-center shrink-0 relative z-10">
-                    <step.icon className="h-7 w-7 text-primary" />
+                    <step.icon className="h-7 w-7 text-[var(--cyan)]" />
                   </div>
-                  <Card className="flex-1 bg-card/50 border-border/50 hover:border-primary/30 transition-colors group">
+                  <Card className="flex-1 bg-card/50 border-border/50 hover:border-[var(--cyan)]/30 transition-colors group">
                     <CardContent className="p-6">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="md:hidden h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                          <step.icon className="h-5 w-5 text-primary" />
+                        <div className="md:hidden h-10 w-10 rounded-lg bg-[var(--cyan)]/10 flex items-center justify-center">
+                          <step.icon className="h-5 w-5 text-[var(--cyan)]" />
                         </div>
-                        <span className="text-xs font-medium text-primary uppercase tracking-wider">
+                        <span className="text-xs font-medium text-[var(--cyan)] uppercase tracking-wider">
                           Step {index + 1}
                         </span>
                       </div>
@@ -135,7 +135,9 @@ export function MethodologySection() {
                     <p className="text-xs text-muted-foreground mb-1">
                       {item.duration}
                     </p>
-                    <p className="font-semibold text-primary">{item.phase}</p>
+                    <p className="font-semibold text-[var(--ember)]">
+                      {item.phase}
+                    </p>
                     <p className="text-xs text-muted-foreground mt-1">
                       {item.description}
                     </p>

@@ -74,7 +74,7 @@ export function CaseStudySection() {
           <Card className="bg-card border-border/50">
             <CardContent className="p-8">
               <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <Zap className="h-5 w-5 text-primary" />
+                <Zap className="h-5 w-5 text-[var(--ember)]" />
                 The Challenge
               </h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -116,7 +116,7 @@ export function CaseStudySection() {
                     <p className="text-xs text-muted-foreground mb-1">
                       {result.label}
                     </p>
-                    <p className="text-2xl font-bold text-primary">
+                    <p className="text-2xl font-bold text-[var(--ember)]">
                       {result.value}
                     </p>
                     <p className="text-xs text-muted-foreground">
@@ -150,8 +150,8 @@ export function CaseStudySection() {
                 <Card className="bg-card border-border/50 h-full">
                   <CardContent className="p-5">
                     <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                        <item.icon className="h-5 w-5 text-primary" />
+                      <div className="h-10 w-10 rounded-lg bg-[var(--cyan)]/10 flex items-center justify-center shrink-0">
+                        <item.icon className="h-5 w-5 text-[var(--cyan)]" />
                       </div>
                       <div>
                         <h4 className="font-semibold mb-2">{item.title}</h4>

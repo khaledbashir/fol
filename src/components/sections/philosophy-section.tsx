@@ -71,10 +71,10 @@ export function PhilosophySection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="h-full bg-card/50 border-border/50 hover:border-primary/30 transition-colors duration-300 group">
+              <Card className="h-full bg-card/50 border-border/50 hover:border-[var(--cyan)]/30 transition-colors duration-300 group">
                 <CardContent className="p-6">
-                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
-                    <principle.icon className="h-6 w-6 text-primary" />
+                  <div className="h-12 w-12 rounded-lg bg-[var(--cyan)]/10 flex items-center justify-center mb-4 group-hover:bg-[var(--cyan)]/20 transition-colors duration-300">
+                    <principle.icon className="h-6 w-6 text-[var(--cyan)]" />
                   </div>
                   <h3 className="text-lg font-semibold mb-3">
                     {principle.title}

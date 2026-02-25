@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
+import { Briefcase, ChevronRight, X } from "lucide-react";
+import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Briefcase, ChevronRight, X } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface Project {
   id: string;
@@ -25,7 +25,7 @@ function normalizeTechnologies(value: unknown): string[] {
   if (Array.isArray(value)) {
     return value
       .filter((item): item is string => typeof item === "string")
-      .map((item) => item.trim())
+      .map(item => item.trim())
       .filter(Boolean);
   }
 
@@ -34,7 +34,7 @@ function normalizeTechnologies(value: unknown): string[] {
     if (!trimmed) return [];
     return trimmed
       .split(",")
-      .map((item) => item.trim())
+      .map(item => item.trim())
       .filter(Boolean);
   }
 
@@ -58,7 +58,8 @@ function normalizeProject(project: unknown): Project | null {
     results: typeof p["results"] === "string" ? p["results"] : "",
     technologies: normalizeTechnologies(p["technologies"]),
     sector: typeof p["sector"] === "string" ? p["sector"] : "",
-    image: typeof p["image"] === "string" || p["image"] === null ? p["image"] : null,
+    image:
+      typeof p["image"] === "string" || p["image"] === null ? p["image"] : null,
     featured: Boolean(p["featured"]),
   };
 }
@@ -93,9 +94,9 @@ export function ProjectsSection() {
 
       const payload = extractProjectsPayload(data);
       const normalized = payload
-        .map((project) => normalizeProject(project))
+        .map(project => normalizeProject(project))
         .filter((project): project is Project => project !== null)
-        .filter((project) => project.featured);
+        .filter(project => project.featured);
 
       setProjects(normalized);
 
@@ -105,7 +106,10 @@ export function ProjectsSection() {
         typeof data === "object" &&
         typeof (data as Record<string, unknown>)["error"] === "string"
       ) {
-        console.error("API returned error:", (data as Record<string, unknown>)["error"]);
+        console.error(
+          "API returned error:",
+          (data as Record<string, unknown>)["error"],
+        );
       }
     } catch (error) {
       console.error("Failed to fetch projects:", error);
@@ -131,9 +135,11 @@ export function ProjectsSection() {
             <Briefcase className="w-3.5 h-3.5 mr-2 text-primary" />
             Featured Projects
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Recent Engagements</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Recent Engagements
+          </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A selection of enterprise transformation projects I've led.
+            A selection of enterprise transformation projects I&apos;ve led.
           </p>
         </motion.div>
 
@@ -146,8 +152,8 @@ export function ProjectsSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card 
-                className="h-full bg-card/50 border-border/50 hover:border-primary/30 transition-all duration-300 cursor-pointer group"
+              <Card
+                className="h-full bg-card/50 border-border/50 hover:border-[var(--ember)]/30 transition-all duration-300 cursor-pointer group"
                 onClick={() => setSelectedProject(project)}
               >
                 <CardContent className="p-6">
@@ -155,25 +161,34 @@ export function ProjectsSection() {
                     <Badge variant="outline" className="text-xs">
                       {project.sector}
                     </Badge>
-                    <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-[var(--ember)] transition-colors" />
                   </div>
-                  <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
+                  <h3 className="font-semibold mb-2 group-hover:text-[var(--ember)] transition-colors">
                     {project.title}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-1">
-                    {Array.isArray(project.technologies) && project.technologies.slice(0, 3).map((tech, i) => (
-                      <Badge key={i} variant="secondary" className="text-xs">
-                        {tech}
-                      </Badge>
-                    ))}
-                    {Array.isArray(project.technologies) && project.technologies.length > 3 && (
-                      <Badge variant="secondary" className="text-xs">
-                        +{project.technologies.length - 3}
-                      </Badge>
-                    )}
+                    {Array.isArray(project.technologies) &&
+                      project.technologies.slice(0, 3).map((tech, i) => (
+                        <Badge
+                          key={i}
+                          variant="secondary"
+                          className="text-xs bg-[var(--cyan)]/10 text-[var(--cyan)] border-[var(--cyan)]/20"
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
+                    {Array.isArray(project.technologies) &&
+                      project.technologies.length > 3 && (
+                        <Badge
+                          variant="secondary"
+                          className="text-xs bg-[var(--cyan)]/10 text-[var(--cyan)] border-[var(--cyan)]/20"
+                        >
+                          +{project.technologies.length - 3}
+                        </Badge>
+                      )}
                   </div>
                 </CardContent>
               </Card>
@@ -195,47 +210,82 @@ export function ProjectsSection() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
             className="bg-card border border-border/50 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
           >
             <div className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <Badge variant="outline" className="mb-2">{selectedProject.sector}</Badge>
-                  <h2 className="text-2xl font-bold">{selectedProject.title}</h2>
-                  <p className="text-muted-foreground">{selectedProject.client}</p>
+                  <Badge variant="outline" className="mb-2">
+                    {selectedProject.sector}
+                  </Badge>
+                  <h2 className="text-2xl font-bold">
+                    {selectedProject.title}
+                  </h2>
+                  <p className="text-muted-foreground">
+                    {selectedProject.client}
+                  </p>
                 </div>
-                <Button variant="ghost" size="icon" onClick={() => setSelectedProject(null)}>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setSelectedProject(null)}
+                >
                   <X className="h-5 w-5" />
                 </Button>
               </div>
 
               <div className="space-y-6">
                 <div>
-                  <h4 className="font-semibold mb-2 text-sm uppercase tracking-wide text-muted-foreground">Overview</h4>
-                  <p className="text-muted-foreground leading-relaxed">{selectedProject.description}</p>
+                  <h4 className="font-semibold mb-2 text-sm uppercase tracking-wide text-muted-foreground">
+                    Overview
+                  </h4>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {selectedProject.description}
+                  </p>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold mb-2 text-sm uppercase tracking-wide text-muted-foreground">The Challenge</h4>
-                  <p className="text-muted-foreground leading-relaxed">{selectedProject.challenge}</p>
+                  <h4 className="font-semibold mb-2 text-sm uppercase tracking-wide text-muted-foreground">
+                    The Challenge
+                  </h4>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {selectedProject.challenge}
+                  </p>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold mb-2 text-sm uppercase tracking-wide text-muted-foreground">The Solution</h4>
-                  <p className="text-muted-foreground leading-relaxed">{selectedProject.solution}</p>
+                  <h4 className="font-semibold mb-2 text-sm uppercase tracking-wide text-muted-foreground">
+                    The Solution
+                  </h4>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {selectedProject.solution}
+                  </p>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold mb-2 text-sm uppercase tracking-wide text-muted-foreground">Results & Impact</h4>
-                  <p className="text-muted-foreground leading-relaxed">{selectedProject.results}</p>
+                  <h4 className="font-semibold mb-2 text-sm uppercase tracking-wide text-muted-foreground">
+                    Results & Impact
+                  </h4>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {selectedProject.results}
+                  </p>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold mb-2 text-sm uppercase tracking-wide text-muted-foreground">Technologies</h4>
+                  <h4 className="font-semibold mb-2 text-sm uppercase tracking-wide text-muted-foreground">
+                    Technologies
+                  </h4>
                   <div className="flex flex-wrap gap-2">
-                    {Array.isArray(selectedProject.technologies) && selectedProject.technologies.map((tech, i) => (
-                      <Badge key={i} variant="secondary">{tech}</Badge>
-                    ))}
+                    {Array.isArray(selectedProject.technologies) &&
+                      selectedProject.technologies.map((tech, i) => (
+                        <Badge
+                          key={i}
+                          variant="secondary"
+                          className="bg-[var(--cyan)]/10 text-[var(--cyan)] border-[var(--cyan)]/20"
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
                   </div>
                 </div>
               </div>

@@ -44,8 +44,8 @@ export function ContactSection() {
           <Card className="bg-card border-primary/30">
             <CardContent className="p-8">
               <div className="flex items-start gap-4 mb-6">
-                <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <MessageSquare className="h-6 w-6 text-primary" />
+                <div className="h-12 w-12 rounded-lg bg-[var(--cyan)]/10 flex items-center justify-center shrink-0">
+                  <MessageSquare className="h-6 w-6 text-[var(--cyan)]" />
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2">
@@ -60,7 +60,11 @@ export function ContactSection() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="flex-1 group" asChild>
+                <Button
+                  size="lg"
+                  className="flex-1 group bg-[var(--ember)] hover:bg-[var(--ember)]/90 text-[var(--ember-foreground)]"
+                  asChild
+                >
                   <a href="mailto:hello@ahmadbasheer.com">
                     <Mail className="mr-2 h-4 w-4" />
                     hello@ahmadbasheer.com
