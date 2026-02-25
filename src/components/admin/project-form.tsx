@@ -14,7 +14,7 @@ interface ProjectFormProps {
   saving: boolean;
   onSubmit: () => void;
   onCancel: () => void;
-  onChange: (field: string, value: string | boolean) => void;
+  onChange: (field: string, value: string | boolean | string[]) => void;
 }
 
 export function ProjectForm({
