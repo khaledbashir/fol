@@ -5,6 +5,9 @@ import prettierConfig from "eslint-config-prettier";
 import prettierPlugin from "eslint-plugin-prettier";
 
 const eslintConfig = defineConfig([
+  {
+    ignores: [".husky/**", ".next/**", "node_modules/**", "dist/**", "build/**"]
+  },
   ...nextVitals,
   ...nextTs,
   {

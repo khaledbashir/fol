@@ -1,476 +1,80 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { 
-  Plus, 
-  Trash2, 
-  Edit, 
-  Save, 
-  X, 
+import {
+  Sparkles,
+  FileText,
   FolderKanban,
-  Star,
-  StarOff
+  Settings,
+  BarChart,
 } from "lucide-react";
+import Link from "next/link";
+import { Card, CardContent } from "@/components/ui/card";
 
-interface Project {
-  id: string;
-  title: string;
-  client: string;
-  description: string;
-  challenge: string;
-  solution: string;
-  results: string;
-  technologies: string[];
-  sector: string;
-  image: string | null;
-  featured: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
+const sections = [
+  {
+    title: "Projects",
+    description: "Manage portfolio projects with AI assistance",
+    icon: FolderKanban,
+    href: "/admin/projects",
+    color: "bg-blue-500/10 text-blue-500",
+  },
+  {
+    title: "Blog Posts",
+    description: "Write and publish blog posts with AI",
+    icon: FileText,
+    href: "/admin/blog",
+    color: "bg-purple-500/10 text-purple-500",
+  },
+  {
+    title: "AI Assistant",
+    description: "Generate content with AI",
+    icon: Sparkles,
+    href: "/admin/ai",
+    color: "bg-amber-500/10 text-amber-500",
+  },
+  {
+    title: "Analytics",
+    description: "View site analytics and insights",
+    icon: BarChart,
+    href: "/admin/analytics",
+    color: "bg-green-500/10 text-green-500",
+  },
+  {
+    title: "Settings",
+    description: "Configure site settings",
+    icon: Settings,
+    href: "/admin/settings",
+    color: "bg-gray-500/10 text-gray-500",
+  },
+];
 
-function normalizeTechnologies(value: unknown): string[] {
-  if (Array.isArray(value)) {
-    return value
-      .filter((item): item is string => typeof item === "string")
-      .map((item) => item.trim())
-      .filter(Boolean);
-  }
-
-  if (typeof value === "string") {
-    const trimmed = value.trim();
-    if (!trimmed) return [];
-
-    return trimmed
-      .split(",")
-      .map((item) => item.trim())
-      .filter(Boolean);
-  }
-
-  return [];
-}
-
-function normalizeProject(project: unknown): Project | null {
-  if (!project || typeof project !== "object") return null;
-
-  const p = project as Record<string, unknown>;
-  if (typeof p["id"] !== "string") return null;
-
-  return {
-    id: p["id"],
-    title: typeof p["title"] === "string" ? p["title"] : "",
-    client: typeof p["client"] === "string" ? p["client"] : "",
-    description: typeof p["description"] === "string" ? p["description"] : "",
-    challenge: typeof p["challenge"] === "string" ? p["challenge"] : "",
-    solution: typeof p["solution"] === "string" ? p["solution"] : "",
-    results: typeof p["results"] === "string" ? p["results"] : "",
-    technologies: normalizeTechnologies(p["technologies"]),
-    sector: typeof p["sector"] === "string" ? p["sector"] : "",
-    image: typeof p["image"] === "string" || p["image"] === null ? p["image"] : null,
-    featured: Boolean(p["featured"]),
-    createdAt: typeof p["createdAt"] === "string" ? p["createdAt"] : "",
-    updatedAt: typeof p["updatedAt"] === "string" ? p["updatedAt"] : "",
-  };
-}
-
-function extractProjectsPayload(data: unknown): unknown[] {
-  if (Array.isArray(data)) return data;
-  if (!data || typeof data !== "object") return [];
-
-  const payload = data as Record<string, unknown>;
-  if (Array.isArray(payload["projects"])) return payload["projects"];
-  if (Array.isArray(payload["data"])) return payload["data"];
-
-  return [];
-}
-
-const emptyProject = {
-  title: "",
-  client: "",
-  description: "",
-  challenge: "",
-  solution: "",
-  results: "",
-  technologies: [] as string[],
-  sector: "",
-  image: "",
-  featured: false,
-};
-
-export default function AdminPage() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [formData, setFormData] = useState(emptyProject);
-  const [techInput, setTechInput] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-
-  useEffect(() => {
-    fetchProjects();
-  }, []);
-
-  const fetchProjects = async () => {
-    try {
-      const res = await fetch("/api/projects");
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-      const data = await res.json();
-
-      const payload = extractProjectsPayload(data);
-      const normalized = payload
-        .map((project) => normalizeProject(project))
-        .filter((project): project is Project => project !== null);
-      setProjects(normalized);
-
-      if (
-        payload.length === 0 &&
-        data &&
-        typeof data === "object" &&
-        typeof (data as Record<string, unknown>)["error"] === "string"
-      ) {
-        console.error("API returned error:", (data as Record<string, unknown>)["error"]);
-      }
-    } catch (error) {
-      console.error("Failed to fetch projects:", error);
-      setProjects([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleInputChange = (field: string, value: string | boolean) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const addTechnology = () => {
-    if (techInput.trim()) {
-      setFormData((prev) => ({
-        ...prev,
-        technologies: [...prev.technologies, techInput.trim()],
-      }));
-      setTechInput("");
-    }
-  };
-
-  const removeTechnology = (index: number) => {
-    setFormData((prev) => ({
-      ...prev,
-      technologies: prev.technologies.filter((_, i) => i !== index),
-    }));
-  };
-
-  const resetForm = () => {
-    setFormData(emptyProject);
-    setEditingId(null);
-    setTechInput("");
-  };
-
-  const handleSubmit = async () => {
-    setSaving(true);
-    try {
-      const url = editingId ? `/api/projects/${editingId}` : "/api/projects";
-      const method = editingId ? "PUT" : "POST";
-      
-      const res = await fetch(url, {
-        method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      
-      if (res.ok) {
-        await fetchProjects();
-        resetForm();
-      }
-    } catch (error) {
-      console.error("Failed to save project:", error);
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  const handleEdit = (project: Project) => {
-    setEditingId(project.id);
-    setFormData({
-      title: project.title,
-      client: project.client,
-      description: project.description,
-      challenge: project.challenge,
-      solution: project.solution,
-      results: project.results,
-      technologies: normalizeTechnologies(project.technologies),
-      sector: project.sector,
-      image: project.image || "",
-      featured: project.featured,
-    });
-  };
-
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this project?")) return;
-    
-    try {
-      await fetch(`/api/projects/${id}`, { method: "DELETE" });
-      await fetchProjects();
-    } catch (error) {
-      console.error("Failed to delete project:", error);
-    }
-  };
-
-  const toggleFeatured = async (project: Project) => {
-    try {
-      await fetch(`/api/projects/${project.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...project, featured: !project.featured }),
-      });
-      await fetchProjects();
-    } catch (error) {
-      console.error("Failed to update project:", error);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-muted-foreground">Loading...</div>
-      </div>
-    );
-  }
-
+export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-            <FolderKanban className="h-6 w-6 text-primary" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold">Projects Admin</h1>
-            <p className="text-muted-foreground text-sm">Manage your portfolio projects</p>
-          </div>
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold mb-2">Admin Dashboard</h1>
+          <p className="text-muted-foreground">AI-powered content management</p>
         </div>
 
-        <Card className="mb-8 bg-card border-border/50">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              {editingId ? <Edit className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
-              {editingId ? "Edit Project" : "Add New Project"}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium mb-1 block">Title</label>
-                <Input
-                  value={formData.title}
-                  onChange={(e) => handleInputChange("title", e.target.value)}
-                  placeholder="Project title"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1 block">Client</label>
-                <Input
-                  value={formData.client}
-                  onChange={(e) => handleInputChange("client", e.target.value)}
-                  placeholder="Client name (can be generic)"
-                />
-              </div>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium mb-1 block">Sector</label>
-                <Input
-                  value={formData.sector}
-                  onChange={(e) => handleInputChange("sector", e.target.value)}
-                  placeholder="e.g., Construction, Manufacturing"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1 block">Image URL (optional)</label>
-                <Input
-                  value={formData.image}
-                  onChange={(e) => handleInputChange("image", e.target.value)}
-                  placeholder="https://..."
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="text-sm font-medium mb-1 block">Description</label>
-              <textarea
-                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm min-h-[80px]"
-                value={formData.description}
-                onChange={(e) => handleInputChange("description", e.target.value)}
-                placeholder="Brief project description"
-              />
-            </div>
-
-            <div>
-              <label className="text-sm font-medium mb-1 block">Challenge</label>
-              <textarea
-                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm min-h-[80px]"
-                value={formData.challenge}
-                onChange={(e) => handleInputChange("challenge", e.target.value)}
-                placeholder="What was the problem?"
-              />
-            </div>
-
-            <div>
-              <label className="text-sm font-medium mb-1 block">Solution</label>
-              <textarea
-                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm min-h-[80px]"
-                value={formData.solution}
-                onChange={(e) => handleInputChange("solution", e.target.value)}
-                placeholder="What did you build?"
-              />
-            </div>
-
-            <div>
-              <label className="text-sm font-medium mb-1 block">Results</label>
-              <textarea
-                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm min-h-[80px]"
-                value={formData.results}
-                onChange={(e) => handleInputChange("results", e.target.value)}
-                placeholder="What was the impact?"
-              />
-            </div>
-
-            <div>
-              <label className="text-sm font-medium mb-1 block">Technologies</label>
-              <div className="flex gap-2 mb-2">
-                <Input
-                  value={techInput}
-                  onChange={(e) => setTechInput(e.target.value)}
-                  placeholder="Add technology"
-                  onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addTechnology())}
-                />
-                <Button type="button" onClick={addTechnology} variant="outline">
-                  Add
-                </Button>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {Array.isArray(formData.technologies) && formData.technologies.map((tech, index) => (
-                  <Badge key={index} variant="secondary" className="gap-1">
-                    {tech}
-                    <button onClick={() => removeTechnology(index)} className="ml-1 hover:text-destructive">
-                      <X className="h-3 w-3" />
-                    </button>
-                  </Badge>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                id="featured"
-                checked={formData.featured}
-                onChange={(e) => handleInputChange("featured", e.target.checked)}
-                className="rounded border-input"
-              />
-              <label htmlFor="featured" className="text-sm font-medium">
-                Featured project
-              </label>
-            </div>
-
-            <div className="flex gap-2">
-              <Button onClick={handleSubmit} disabled={saving}>
-                <Save className="h-4 w-4 mr-2" />
-                {saving ? "Saving..." : editingId ? "Update Project" : "Create Project"}
-              </Button>
-              {editingId && (
-                <Button variant="outline" onClick={resetForm}>
-                  Cancel
-                </Button>
-              )}
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold">Existing Projects ({projects.length})</h2>
-          {projects.length === 0 ? (
-            <Card className="bg-card/50 border-border/50">
-              <CardContent className="py-8 text-center text-muted-foreground">
-                No projects yet. Add your first project above.
-              </CardContent>
-            </Card>
-          ) : (
-            projects.map((project) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <Card className="bg-card/50 border-border/50 hover:border-border transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-semibold truncate">{project.title}</h3>
-                          {project.featured && (
-                            <Badge variant="default" className="text-xs">Featured</Badge>
-                          )}
-                        </div>
-                        <p className="text-sm text-muted-foreground mb-2">
-                          {project.client} · {project.sector}
-                        </p>
-                        <p className="text-sm text-muted-foreground line-clamp-2">
-                          {project.description}
-                        </p>
-                        <div className="flex flex-wrap gap-1 mt-2">
-                          {Array.isArray(project.technologies) && project.technologies.slice(0, 4).map((tech, i) => (
-                            <Badge key={i} variant="outline" className="text-xs">
-                              {tech}
-                            </Badge>
-                          ))}
-                          {Array.isArray(project.technologies) && project.technologies.length > 4 && (
-                            <Badge variant="outline" className="text-xs">
-                              +{project.technologies.length - 4}
-                            </Badge>
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex gap-1 shrink-0">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => toggleFeatured(project)}
-                          title={project.featured ? "Remove from featured" : "Mark as featured"}
-                        >
-                          {project.featured ? (
-                            <Star className="h-4 w-4 text-primary fill-primary" />
-                          ) : (
-                            <StarOff className="h-4 w-4" />
-                          )}
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleEdit(project)}
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleDelete(project.id)}
-                          className="hover:text-destructive"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))
-          )}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {sections.map(section => (
+            <Link key={section.href} href={section.href}>
+              <Card className="hover:border-primary/50 transition-all cursor-pointer h-full">
+                <CardContent className="p-6">
+                  <div
+                    className={`h-12 w-12 rounded-lg ${section.color} flex items-center justify-center mb-4`}
+                  >
+                    <section.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="font-semibold mb-1">{section.title}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {section.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
         </div>
       </div>
     </div>
