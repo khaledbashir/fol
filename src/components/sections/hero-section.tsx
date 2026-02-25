@@ -1,17 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, Brain, FileText, Zap, Clock } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { ArrowDown, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-
-const quickProof = [
-  { icon: Brain, value: "AI-Powered", label: "Automation" },
-  { icon: FileText, value: "Document", label: "Intelligence" },
-  { icon: Zap, value: "Weeks → Minutes", label: "Time Saved" },
-  { icon: Clock, value: "Production", label: "Ready" },
-];
 
 export function HeroSection() {
   return (
@@ -24,82 +15,42 @@ export function HeroSection() {
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-2xl" />
 
       <div className="container mx-auto px-6 py-20 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-6"
-          >
-            <Badge
-              variant="outline"
-              className="px-4 py-1.5 text-sm border-primary/30 text-primary"
-            >
-              Tech Lead & AI Consultant
-            </Badge>
-          </motion.div>
-
+        <div className="max-w-4xl mx-auto text-center space-y-8">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-6xl font-bold mb-6 leading-tight"
+            transition={{ duration: 0.6 }}
+            className="text-5xl md:text-7xl font-bold leading-tight"
           >
-            <span className="text-foreground">Ahmad</span>{" "}
-            <span className="text-primary">Basheer</span>
+            Your team is losing days to work that should take{" "}
+            <span className="text-primary">hours</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl md:text-2xl text-muted-foreground mb-6 max-w-2xl mx-auto leading-relaxed"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
           >
-            I build{" "}
-            <span className="text-foreground font-medium">
-              AI-powered systems
-            </span>{" "}
-            that replace manual workflows with intelligent automation.
+            I build AI-powered automation systems that eliminate the manual
+            bottlenecks inside complex, document-heavy operations — and put that
+            time back into revenue-generating work.
           </motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            className="text-base text-muted-foreground mb-8 max-w-xl mx-auto"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg text-muted-foreground/80"
           >
-            Turning weeks of work into minutes. I take messy, real-world
-            workflows and turn them into production systems that professionals
-            trust and actually use.
+            Not demos. Not chatbots. Production systems your team will actually
+            use on day one.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10 max-w-3xl mx-auto"
-          >
-            {quickProof.map(item => (
-              <div key={item.label} className="text-center">
-                <Card className="bg-card/50 border-border/50 hover:border-[var(--cyan)]/30 transition-colors">
-                  <CardContent className="p-3">
-                    <item.icon className="h-4 w-4 text-[var(--cyan)] mx-auto mb-1" />
-                    <p className="text-sm font-bold text-foreground">
-                      {item.value}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {item.label}
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Button
@@ -107,32 +58,45 @@ export function HeroSection() {
               className="px-8 bg-[var(--ember)] hover:bg-[var(--ember)]/90 text-[var(--ember-foreground)]"
               asChild
             >
-              <a href="#projects">View Projects</a>
+              <a href="#projects">View My Work</a>
             </Button>
             <Button size="lg" variant="outline" className="px-8" asChild>
-              <a href="#contact">Get In Touch</a>
+              <a href="#contact">Start a Conversation</a>
             </Button>
           </motion.div>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="mt-8 text-sm text-muted-foreground"
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="pt-8 border-t border-border/50"
           >
-            Available for AI tool development & consulting
-          </motion.p>
+            <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-primary" />
+                Available for enterprise engagements
+              </span>
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-primary" />
+                Typical delivery: 2–6 weeks
+              </span>
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-primary" />
+                Direct communication, no account managers
+              </span>
+            </div>
+          </motion.div>
         </div>
       </div>
 
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
+        transition={{ duration: 0.6, delay: 0.6 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <a
-          href="#about"
+          href="#philosophy"
           className="text-muted-foreground hover:text-primary transition-colors"
         >
           <ArrowDown className="h-6 w-6 animate-bounce" />

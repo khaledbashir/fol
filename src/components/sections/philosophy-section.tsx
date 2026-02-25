@@ -1,33 +1,27 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Lightbulb, Users, Gauge, Code } from "lucide-react";
+import { Lightbulb, Users, Gauge } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const principles = [
   {
     icon: Lightbulb,
-    title: "Real Problems, Not Hype",
+    title: "I focus on leverage, not novelty",
     description:
-      "I don't build chatbots for the sake of having AI. I identify where AI actually solves problems — document processing, workflow automation, decision support — and build only what delivers value.",
+      "I don&apos;t propose AI because it&apos;s trendy. I map your workflows, find where hours are being burned on repeatable decisions and document processing, and build the specific system that eliminates that waste. If AI isn&apos;t the answer, I&apos;ll tell you.",
   },
   {
     icon: Users,
-    title: "Built for Real Users",
+    title: "I build for adoption, not demos",
     description:
-      "The best AI tool is worthless if nobody uses it. I build interfaces that fit how people actually work. If your team can use a spreadsheet, they can use what I build — on day one.",
+      "A tool your team avoids is worthless. Every system I build fits inside how your people already work — or it doesn't ship. If your process runs on spreadsheets today, the transition is seamless, not a six-month change management project.",
   },
   {
     icon: Gauge,
-    title: "Ship Fast, Ship Working",
+    title: "I move fast because speed has a dollar value",
     description:
-      "I use AI tooling aggressively in my own workflow. That means I move at a speed that surprises people used to traditional dev shops. Working software, delivered fast.",
-  },
-  {
-    icon: Code,
-    title: "Production-Grade Code",
-    description:
-      "No prototypes dressed up as products. Everything I build is engineered for real use — proper error handling, testing, documentation, and maintainability.",
+      "Every week your team spends on manual proposal work is revenue at risk and senior talent wasted on data entry. I use AI aggressively in my own build process, which means working software in weeks — not a roadmap that turns into a six-month engagement.",
   },
 ];
 
@@ -42,10 +36,14 @@ export function PhilosophySection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">How I Work</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            One person. Full accountability. No handoffs.
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
             I operate as a one-person product team — scoping, building,
-            deploying, and iterating directly with stakeholders.
+            deploying, and iterating directly with decision-makers. That means
+            zero context lost between a sales call and a developer. When you
+            talk to me, you&apos;re talking to the person who writes the code.
           </p>
         </motion.div>
 

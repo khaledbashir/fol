@@ -11,22 +11,19 @@ import {
   Database,
   Cloud,
   FileText,
-  Settings,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
 const rightFit = [
-  "You have manual processes eating up hours of skilled people's time.",
-  "You're drowning in documents, spreadsheets, and disconnected workflows.",
-  "You need AI that actually works in production, not just demos.",
-  "You want to ship fast without sacrificing quality.",
+  "Your team is losing days of skilled labor to work that should be automated.",
+  "You've tried off-the-shelf tools and they don't fit your process.",
+  "You need something built for your exact workflow, not adapted from someone else's.",
 ];
 
 const notRightFit = [
-  "You just need a basic website or landing page.",
-  "You're looking for off-the-shelf SaaS integration.",
-  "You want a chatbot slapped onto your homepage.",
+  "You need a basic website, a chatbot, or standard SaaS integrations.",
+  "You're looking for the cheapest option — I'm the right option when the problem is complex enough to require it.",
 ];
 
 const techStack = [
@@ -54,33 +51,6 @@ const techStack = [
   { icon: Layers, title: "Data", items: "Database design, ETL pipelines" },
 ];
 
-const whatIBuild = [
-  {
-    icon: FileText,
-    title: "Proposal & Quote Automation",
-    description:
-      "Systems that take complex pricing spreadsheets and output polished, branded PDF proposals. No more copy-paste marathons between Excel and Word.",
-  },
-  {
-    icon: Brain,
-    title: "RFP Intelligence Platforms",
-    description:
-      "AI-powered tools that digest massive specification documents, extract relevant requirements using vision models, and surface what teams need to build accurate quotes fast.",
-  },
-  {
-    icon: Layers,
-    title: "Document Processing Pipelines",
-    description:
-      "End-to-end systems that take unstructured inputs — architectural drawings, scanned PDFs, messy spreadsheets — then classify, extract, and structure the data.",
-  },
-  {
-    icon: Settings,
-    title: "Internal Tools & Dashboards",
-    description:
-      "Custom platforms that give teams visibility into their workflows, automate approval chains, and eliminate the back-and-forth that kills productivity.",
-  },
-];
-
 export function AboutSection() {
   return (
     <section id="about" className="py-24 relative">
@@ -96,11 +66,23 @@ export function AboutSection() {
             <User className="w-3.5 h-3.5 mr-2 text-primary" />
             About
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">What I Do</h2>
-          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            I sit at the intersection of AI engineering and business process
-            automation. I build tools that survive contact with real users and
-            real data.
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">About</h2>
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
+            I&apos;m Ahmad Basheer — a Tech Lead and AI consultant who builds
+            enterprise automation systems for companies drowning in
+            document-heavy, manual workflows.
+          </p>
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed mt-4">
+            My background is in full-stack engineering and AI integration.
+            I&apos;ve spent years building systems where failure isn&apos;t a
+            demo inconvenience — it&apos;s a lost contract or a compliance gap.
+            That shapes how I build: production-grade by default, fast by
+            design, and built for the people who actually have to use it.
+          </p>
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed mt-4">
+            I take on a small number of projects at a time. Every engagement
+            gets my direct attention from discovery through deployment. No
+            juniors, no handoffs, no context lost in translation.
           </p>
         </motion.div>
 
@@ -110,38 +92,7 @@ export function AboutSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="mb-16"
-        >
-          <h3 className="text-xl font-semibold mb-6 text-center">
-            What I Build
-          </h3>
-          <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-            {whatIBuild.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Card className="h-full bg-card/50 border-border/50 hover:border-[var(--cyan)]/30 transition-colors">
-                  <CardContent className="p-5">
-                    <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-lg bg-[var(--cyan)]/10 flex items-center justify-center shrink-0">
-                        <item.icon className="h-5 w-5 text-[var(--cyan)]" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-2">{item.title}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        ></motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
           <motion.div

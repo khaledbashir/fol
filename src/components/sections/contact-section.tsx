@@ -24,13 +24,13 @@ export function ContactSection() {
           </Badge>
 
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Have a problem AI could solve?
+            Have a workflow that&apos;s costing you real time and money?
           </h2>
 
           <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-            I take on a limited number of projects at a time. If you have a
-            workflow that&apos;s eating up your team&apos;s time, let&apos;s
-            discuss whether AI automation makes sense.
+            Tell me what it is. I&apos;ll give you a direct assessment of
+            whether AI automation makes sense — and what it would take to build
+            it.
           </p>
         </motion.div>
 
@@ -84,7 +84,8 @@ export function ContactSection() {
           className="mt-8 text-center"
         >
           <p className="text-sm text-muted-foreground">
-            Response within 24 hours · No sales calls · Direct communication
+            I respond within 24 hours. No sales calls, no NDAs to start a
+            conversation, no proposals before I understand the problem.
           </p>
         </motion.div>
       </div>
