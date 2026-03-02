@@ -3,113 +3,101 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 // ---------------------------------------------------------------------------
-// Provider config – driven by env vars set in EasyPanel
+// Provider config – purely from env vars, all models fetched live
 // ---------------------------------------------------------------------------
-interface Provider {
+interface ProviderConfig {
   prefix: string;
   baseUrl: string;
   apiKey: string;
-  models: string[];
 }
 
-function getProviders(): Provider[] {
-  const providers: Provider[] = [];
+function getProviderConfigs(): ProviderConfig[] {
+  const configs: ProviderConfig[] = [];
 
   if (process.env["ZAI_API_KEY"]) {
-    providers.push({
+    configs.push({
       prefix: "zai",
       baseUrl: "https://api.z.ai/api/coding/paas/v4",
       apiKey: process.env["ZAI_API_KEY"]!,
-      models: ["zai/glm-4.7", "zai/glm-4.5", "zai/glm-4-flash"],
     });
   }
-
   if (process.env["NVIDIA_API_KEY"]) {
-    providers.push({
+    configs.push({
       prefix: "nvidia",
       baseUrl: "https://integrate.api.nvidia.com/v1",
       apiKey: process.env["NVIDIA_API_KEY"]!,
-      models: [
-        "nvidia/meta/llama-3.3-70b-instruct",
-        "nvidia/meta/llama-3.1-405b-instruct",
-        "nvidia/mistralai/mixtral-8x22b-instruct-v0.1",
-        "nvidia/nvidia/llama-3.1-nemotron-70b-instruct",
-        "nvidia/qwen/qwq-32b",
-        "nvidia/deepseek-ai/deepseek-r1",
-      ],
     });
   }
-
   if (process.env["OPENAI_API_KEY"]) {
-    providers.push({
+    configs.push({
       prefix: "openai",
       baseUrl: "https://api.openai.com/v1",
       apiKey: process.env["OPENAI_API_KEY"]!,
-      models: [
-        "openai/gpt-4o",
-        "openai/gpt-4o-mini",
-        "openai/o3-mini",
-        "openai/gpt-4-turbo",
-      ],
     });
   }
-
   if (process.env["GEMINI_API_KEY"]) {
-    providers.push({
+    configs.push({
       prefix: "gemini",
       baseUrl: "https://generativelanguage.googleapis.com/v1beta/openai",
       apiKey: process.env["GEMINI_API_KEY"]!,
-      models: [
-        "gemini/gemini-2.0-flash",
-        "gemini/gemini-2.0-flash-lite",
-        "gemini/gemini-1.5-pro",
-        "gemini/gemini-1.5-flash",
-      ],
     });
   }
-
   if (process.env["INCEPTION_API_KEY"]) {
-    providers.push({
+    configs.push({
       prefix: "inception",
       baseUrl: "https://api.inceptionlabs.ai/v1",
       apiKey: process.env["INCEPTION_API_KEY"]!,
-      models: [
-        "inception/mercury-2",
-        "inception/mercury-coder-small-beta",
-        "inception/mercury-coder-small",
-      ],
     });
   }
 
-  return providers;
-}
-
-function resolveProvider(
-  modelId: string,
-  providers: Provider[],
-): { provider: Provider; actualModel: string } | null {
-  for (const p of providers) {
-    if (modelId.startsWith(`${p.prefix}/`)) {
-      return { provider: p, actualModel: modelId.slice(p.prefix.length + 1) };
-    }
+  // Custom provider via env: CUSTOM_API_KEY + CUSTOM_BASE_URL + CUSTOM_PREFIX
+  if (
+    process.env["CUSTOM_API_KEY"] &&
+    process.env["CUSTOM_BASE_URL"] &&
+    process.env["CUSTOM_PREFIX"]
+  ) {
+    configs.push({
+      prefix: process.env["CUSTOM_PREFIX"]!,
+      baseUrl: process.env["CUSTOM_BASE_URL"]!,
+      apiKey: process.env["CUSTOM_API_KEY"]!,
+    });
   }
-  return null;
+
+  return configs;
 }
 
-// GET – return available models
-export async function GET() {
-  const providers = getProviders();
-  const models = providers.flatMap(p => p.models);
+async function fetchModelsForProvider(
+  config: ProviderConfig,
+): Promise<string[]> {
+  try {
+    const res = await fetch(`${config.baseUrl}/models`, {
+      headers: { Authorization: `Bearer ${config.apiKey}` },
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (!res.ok) return [];
+    const data = (await res.json()) as { data?: { id: string }[] };
+    return (data.data ?? []).map(m => `${config.prefix}/${m.id}`);
+  } catch {
+    return [];
+  }
+}
 
-  if (models.length === 0) {
+// GET – fetch models live from each configured provider
+export async function GET() {
+  const configs = getProviderConfigs();
+
+  if (configs.length === 0) {
     return NextResponse.json(
       {
         error:
-          "No AI providers configured. Set ZAI_API_KEY, NVIDIA_API_KEY, OPENAI_API_KEY, or GEMINI_API_KEY.",
+          "No AI providers configured. Set ZAI_API_KEY, NVIDIA_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY, INCEPTION_API_KEY, or CUSTOM_API_KEY+CUSTOM_BASE_URL+CUSTOM_PREFIX.",
       },
       { status: 503 },
     );
   }
+
+  const results = await Promise.all(configs.map(fetchModelsForProvider));
+  const models = results.flat();
 
   return NextResponse.json({ models });
 }
@@ -140,46 +128,57 @@ export async function POST(request: Request) {
       );
     }
 
-    const providers = getProviders();
-    if (providers.length === 0) {
+    const configs = getProviderConfigs();
+    if (configs.length === 0) {
       return NextResponse.json(
-        {
-          error:
-            "No AI providers configured. Set ZAI_API_KEY, NVIDIA_API_KEY, OPENAI_API_KEY, or GEMINI_API_KEY.",
-        },
+        { error: "No AI providers configured." },
         { status: 503 },
       );
     }
 
-    let provider: Provider;
+    // Resolve provider from model prefix (e.g. "inception/mercury-2" → inception provider + "mercury-2")
+    let config: ProviderConfig;
     let actualModel: string;
 
     if (modelId) {
-      const resolved = resolveProvider(modelId, providers);
-      if (!resolved) {
+      const slashIdx = modelId.indexOf("/");
+      if (slashIdx === -1) {
         return NextResponse.json(
           {
-            error: `Unknown model "${modelId}". Available: ${providers.flatMap(p => p.models).join(", ")}`,
+            error: `Model must include provider prefix, e.g. "inception/mercury-2".`,
           },
           { status: 400 },
         );
       }
-      provider = resolved.provider;
-      actualModel = resolved.actualModel;
+      const prefix = modelId.slice(0, slashIdx);
+      const found = configs.find(c => c.prefix === prefix);
+      if (!found) {
+        return NextResponse.json(
+          { error: `No configured provider for prefix "${prefix}".` },
+          { status: 400 },
+        );
+      }
+      config = found;
+      actualModel = modelId.slice(slashIdx + 1);
     } else {
-      provider = providers[0]!;
-      actualModel = provider.models[0]!.slice(provider.prefix.length + 1);
+      config = configs[0]!;
+      // fetch first available model from provider
+      const available = await fetchModelsForProvider(config);
+      actualModel =
+        available.length > 0
+          ? available[0]!.slice(config.prefix.length + 1)
+          : "";
     }
 
     const systemPrompt = skill
       ? `You are a helpful AI assistant. Use your "${skill}" expertise when answering.`
       : "You are a helpful AI assistant.";
 
-    const response = await fetch(`${provider.baseUrl}/chat/completions`, {
+    const response = await fetch(`${config.baseUrl}/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${provider.apiKey}`,
+        Authorization: `Bearer ${config.apiKey}`,
       },
       body: JSON.stringify({
         model: actualModel,
