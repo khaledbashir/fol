@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Proposal Builder"
+  short_description: "Create branded freelance AI proposals."
+  default_prompt: "Create a client-ready freelance AI proposal using Basheer defaults and generate a polished PDF."
