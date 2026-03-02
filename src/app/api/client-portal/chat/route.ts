@@ -7,6 +7,7 @@ const WORKSPACE_ROOT = process.env["WORKSPACE_ROOT"] || process.cwd();
 const OPENCODE_CANDIDATES = [
   process.env["OPENCODE_BIN"],
   "/root/.opencode/bin/opencode",
+  "/home/nextjs/.opencode/bin/opencode",
   "/home/node/.opencode/bin/opencode",
 ].filter(Boolean) as string[];
 

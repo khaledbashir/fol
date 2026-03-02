@@ -1,4 +1,4 @@
-FROM node:20-alpine AS builder
+FROM node:20-bookworm AS builder
 
 WORKDIR /app
 
@@ -11,11 +11,13 @@ COPY . .
 RUN pnpm dlx prisma generate
 RUN pnpm build
 
-FROM node:20-alpine AS runner
+FROM node:20-bookworm AS runner
 
 WORKDIR /app
 
 RUN npm install -g pnpm
+RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates bash && rm -rf /var/lib/apt/lists/*
+RUN curl -fsSL https://opencode.ai/install | bash
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -33,5 +35,6 @@ EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+ENV OPENCODE_BIN="/root/.opencode/bin/opencode"
 
 CMD ["node", "server.js"]
