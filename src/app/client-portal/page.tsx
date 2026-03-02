@@ -62,7 +62,7 @@ export default function ClientPortalPage() {
         const list = data.models || [];
         setModels(list);
         if (list.length > 0) {
-          setSelectedModel(list[0]);
+          setSelectedModel(list[0] ?? "");
         }
       } catch (error) {
         if (!active) return;

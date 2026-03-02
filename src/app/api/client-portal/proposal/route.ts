@@ -2,7 +2,7 @@ import { spawn } from "node:child_process";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
-const WORKSPACE_ROOT = process.env.WORKSPACE_ROOT || process.cwd();
+const WORKSPACE_ROOT = process.env["WORKSPACE_ROOT"] || process.cwd();
 
 function normalizeSlug(input: string): string {
   return input

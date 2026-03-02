@@ -2,8 +2,8 @@ import { spawn } from "node:child_process";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
-const WORKSPACE_ROOT = process.env.WORKSPACE_ROOT || process.cwd();
-const OPENCODE_BIN = process.env.OPENCODE_BIN || "opencode";
+const WORKSPACE_ROOT = process.env["WORKSPACE_ROOT"] || process.cwd();
+const OPENCODE_BIN = process.env["OPENCODE_BIN"] || "opencode";
 
 const ANSI_REGEX =
   /\u001b\[[0-9;]*m|\u001b\][^\u0007]*(?:\u0007|\u001b\\)|[\u0000-\u0008\u000b-\u001a\u001c-\u001f]/g;

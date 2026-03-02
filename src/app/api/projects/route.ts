@@ -3,7 +3,10 @@ import { prisma } from "@/lib/db";
 
 function normalizeTechnologies(value: unknown): string[] {
   if (Array.isArray(value)) {
-    return value.filter((item): item is string => typeof item === "string").map((item) => item.trim()).filter(Boolean);
+    return value
+      .filter((item): item is string => typeof item === "string")
+      .map(item => item.trim())
+      .filter(Boolean);
   }
 
   if (typeof value === "string") {
@@ -13,13 +16,19 @@ function normalizeTechnologies(value: unknown): string[] {
     try {
       const parsed = JSON.parse(trimmed);
       if (Array.isArray(parsed)) {
-        return parsed.filter((item): item is string => typeof item === "string").map((item) => item.trim()).filter(Boolean);
+        return parsed
+          .filter((item): item is string => typeof item === "string")
+          .map(item => item.trim())
+          .filter(Boolean);
       }
     } catch {
       // Not JSON, fallback to comma-separated parsing below.
     }
 
-    return trimmed.split(",").map((item) => item.trim()).filter(Boolean);
+    return trimmed
+      .split(",")
+      .map(item => item.trim())
+      .filter(Boolean);
   }
 
   return [];
@@ -31,15 +40,20 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
     });
 
-    const normalizedProjects = projects.map((project) => ({
-      ...project,
-      technologies: normalizeTechnologies(project.technologies),
-    }));
+    const normalizedProjects = projects.map(
+      (project: (typeof projects)[number]) => ({
+        ...project,
+        technologies: normalizeTechnologies(project.technologies),
+      }),
+    );
 
     return NextResponse.json(normalizedProjects);
   } catch (error) {
     console.error("Error fetching projects:", error);
-    return NextResponse.json({ error: "Failed to fetch projects" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch projects" },
+      { status: 500 },
+    );
   }
 }
 
@@ -63,6 +77,9 @@ export async function POST(request: Request) {
     return NextResponse.json(project);
   } catch (error) {
     console.error("Error creating project:", error);
-    return NextResponse.json({ error: "Failed to create project" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to create project" },
+      { status: 500 },
+    );
   }
 }
