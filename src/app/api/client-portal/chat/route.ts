@@ -68,6 +68,18 @@ function getProviders(): Provider[] {
     });
   }
 
+  if (process.env["INCEPTION_API_KEY"]) {
+    providers.push({
+      prefix: "inception",
+      baseUrl: "https://api.inceptionlabs.ai/v1",
+      apiKey: process.env["INCEPTION_API_KEY"]!,
+      models: [
+        "inception/mercury-coder-small-beta",
+        "inception/mercury-coder-small",
+      ],
+    });
+  }
+
   return providers;
 }
 
