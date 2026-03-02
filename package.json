@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:container": "docker compose up -d postgres && docker rm -f fol-pnpm-dev >/dev/null 2>&1 || true && docker run -d --name fol-pnpm-dev --add-host=host.docker.internal:host-gateway -p 3004:3004 -w /app -v \"$PWD\":/app -e DATABASE_URL=postgresql://postgres:postgres@host.docker.internal:5432/portfolio?schema=public node:20-bookworm sh -lc \"npm i -g pnpm >/dev/null 2>&1 && pnpm dev --hostname 0.0.0.0 --port 3004\" && docker logs -f fol-pnpm-dev",
+    "dev:container:stop": "docker rm -f fol-pnpm-dev >/dev/null 2>&1 || true",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

@@ -1,7 +1,6 @@
 "use client";
 
-import { ArrowLeft, Plus, Trash2, RefreshCw } from "lucide-react";
-import Link from "next/link";
+import { Cpu, Plus, RefreshCw, ShieldCheck, Trash2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -123,169 +122,196 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center gap-4 mb-8">
-          <Link href="/admin">
-            <Button variant="ghost" size="icon">
-              <ArrowLeft className="h-4 w-4" />
-            </Button>
-          </Link>
-          <div>
-            <h1 className="text-2xl font-bold">AI Settings</h1>
-            <p className="text-muted-foreground text-sm">
-              Configure AI providers and models
-            </p>
-          </div>
-        </div>
+    <div className="space-y-6">
+      <section className="rounded-2xl border border-border/70 bg-card/80 p-6">
+        <Badge variant="outline">Configuration</Badge>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight">
+          AI Settings
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Configure providers, refresh available models, and choose your active
+          inference endpoint.
+        </p>
+      </section>
 
-        {error && (
-          <div className="mb-4 p-4 bg-destructive/10 border border-destructive/20 rounded-lg text-destructive text-sm">
-            {error}
-          </div>
-        )}
-
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Plus className="h-4 w-4" />
-              Add AI Provider
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
+      <section className="grid gap-4 sm:grid-cols-2">
+        <Card className="border-border/70 bg-card/80">
+          <CardContent className="flex items-center justify-between p-5">
             <div>
-              <label className="text-sm font-medium mb-1 block">
-                Provider Name
-              </label>
-              <Input
-                value={newProvider.name}
-                onChange={e =>
-                  setNewProvider({ ...newProvider, name: e.target.value })
-                }
-                placeholder="e.g., OpenAI, Local LLM"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium mb-1 block">
-                API Endpoint
-              </label>
-              <Input
-                value={newProvider.endpoint}
-                onChange={e =>
-                  setNewProvider({ ...newProvider, endpoint: e.target.value })
-                }
-                placeholder="https://api.openai.com/v1"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium mb-1 block">API Key</label>
-              <Input
-                type="password"
-                value={newProvider.apiKey}
-                onChange={e =>
-                  setNewProvider({ ...newProvider, apiKey: e.target.value })
-                }
-                placeholder="sk-..."
-              />
-            </div>
-            <Button onClick={handleAddProvider} disabled={loading === "add"}>
-              {loading === "add" ? "Adding..." : "Add Provider"}
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Configured Providers</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {settings.providers.length === 0 ? (
-              <p className="text-muted-foreground text-sm text-center py-8">
-                No providers configured. Add one above.
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                Providers
               </p>
-            ) : (
-              settings.providers.map(provider => (
-                <div
-                  key={provider.id}
-                  className="border rounded-lg p-4 space-y-3"
-                >
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-semibold">{provider.name}</h3>
-                        {settings.selectedProvider === provider.id && (
-                          <Badge variant="default" className="text-xs">
-                            Active
-                          </Badge>
-                        )}
-                      </div>
-                      <p className="text-sm text-muted-foreground">
-                        {provider.endpoint}
-                      </p>
-                    </div>
-                    <div className="flex gap-1">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleRefreshModels(provider)}
-                        disabled={loading === provider.id}
-                      >
-                        <RefreshCw
-                          className={`h-4 w-4 ${loading === provider.id ? "animate-spin" : ""}`}
-                        />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleRemoveProvider(provider.id)}
-                        className="hover:text-destructive"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      Models ({provider.models.length})
-                    </label>
-                    <div className="flex flex-wrap gap-2">
-                      {provider.models.map(model => (
-                        <Badge
-                          key={model}
-                          variant={
-                            settings.selectedProvider === provider.id &&
-                            settings.selectedModel === model
-                              ? "default"
-                              : "outline"
-                          }
-                          className="cursor-pointer"
-                          onClick={() => {
-                            handleSelectProvider(provider.id);
-                            handleSelectModel(model);
-                          }}
-                        >
-                          {model}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  {settings.selectedProvider !== provider.id && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleSelectProvider(provider.id)}
-                    >
-                      Set as Active
-                    </Button>
-                  )}
-                </div>
-              ))
-            )}
+              <p className="mt-2 text-2xl font-semibold">
+                {settings.providers.length}
+              </p>
+            </div>
+            <ShieldCheck className="h-5 w-5 text-cyan" />
           </CardContent>
         </Card>
-      </div>
+        <Card className="border-border/70 bg-card/80">
+          <CardContent className="flex items-center justify-between p-5">
+            <div>
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                Active Model
+              </p>
+              <p className="mt-2 text-lg font-semibold">
+                {settings.selectedModel || "Not selected"}
+              </p>
+            </div>
+            <Cpu className="h-5 w-5 text-primary" />
+          </CardContent>
+        </Card>
+      </section>
+
+      {error && (
+        <div className="rounded-xl border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive">
+          {error}
+        </div>
+      )}
+
+      <Card className="border-border/70 bg-card/80">
+        <CardHeader className="border-b border-border/70 pb-4">
+          <CardTitle className="flex items-center gap-2">
+            <Plus className="h-4 w-4" />
+            Add AI Provider
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4 pt-5">
+          <div>
+            <label className="mb-1 block text-sm font-medium">
+              Provider Name
+            </label>
+            <Input
+              value={newProvider.name}
+              onChange={e =>
+                setNewProvider({ ...newProvider, name: e.target.value })
+              }
+              placeholder="e.g., OpenAI, Local LLM"
+              className="bg-background/80"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm font-medium">
+              API Endpoint
+            </label>
+            <Input
+              value={newProvider.endpoint}
+              onChange={e =>
+                setNewProvider({ ...newProvider, endpoint: e.target.value })
+              }
+              placeholder="https://api.openai.com/v1"
+              className="bg-background/80"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm font-medium">API Key</label>
+            <Input
+              type="password"
+              value={newProvider.apiKey}
+              onChange={e =>
+                setNewProvider({ ...newProvider, apiKey: e.target.value })
+              }
+              placeholder="sk-..."
+              className="bg-background/80"
+            />
+          </div>
+          <Button onClick={handleAddProvider} disabled={loading === "add"}>
+            {loading === "add" ? "Adding..." : "Add Provider"}
+          </Button>
+        </CardContent>
+      </Card>
+
+      <Card className="border-border/70 bg-card/80">
+        <CardHeader className="border-b border-border/70 pb-4">
+          <CardTitle>Configured Providers</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4 pt-5">
+          {settings.providers.length === 0 ? (
+            <p className="py-8 text-center text-sm text-muted-foreground">
+              No providers configured. Add one above.
+            </p>
+          ) : (
+            settings.providers.map(provider => (
+              <div
+                key={provider.id}
+                className="space-y-3 rounded-lg border border-border/70 bg-background/70 p-4"
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <div className="mb-1 flex items-center gap-2">
+                      <h3 className="font-semibold">{provider.name}</h3>
+                      {settings.selectedProvider === provider.id && (
+                        <Badge variant="default" className="text-xs">
+                          Active
+                        </Badge>
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {provider.endpoint}
+                    </p>
+                  </div>
+                  <div className="flex gap-1">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleRefreshModels(provider)}
+                      disabled={loading === provider.id}
+                    >
+                      <RefreshCw
+                        className={`h-4 w-4 ${loading === provider.id ? "animate-spin" : ""}`}
+                      />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleRemoveProvider(provider.id)}
+                      className="hover:text-destructive"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-medium">
+                    Models ({provider.models.length})
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {provider.models.map(model => (
+                      <Badge
+                        key={model}
+                        variant={
+                          settings.selectedProvider === provider.id &&
+                          settings.selectedModel === model
+                            ? "default"
+                            : "outline"
+                        }
+                        className="cursor-pointer"
+                        onClick={() => {
+                          handleSelectProvider(provider.id);
+                          handleSelectModel(model);
+                        }}
+                      >
+                        {model}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                {settings.selectedProvider !== provider.id && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleSelectProvider(provider.id)}
+                  >
+                    Set as Active
+                  </Button>
+                )}
+              </div>
+            ))
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }

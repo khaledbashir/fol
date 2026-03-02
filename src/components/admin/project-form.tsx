@@ -42,8 +42,8 @@ export function ProjectForm({
   };
 
   return (
-    <Card className="mb-8 bg-card border-border/50">
-      <CardHeader>
+    <Card className="border-border/70 bg-card/80">
+      <CardHeader className="border-b border-border/70 pb-4">
         <CardTitle className="flex items-center gap-2">
           {editingId ? (
             <Edit className="h-4 w-4" />
@@ -53,49 +53,53 @@ export function ProjectForm({
           {editingId ? "Edit Project" : "Add New Project"}
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-5 pt-5">
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="text-sm font-medium mb-1 block">Title</label>
+            <label className="mb-1 block text-sm font-medium">Title</label>
             <Input
               value={formData.title}
               onChange={e => onChange("title", e.target.value)}
               placeholder="Project title"
+              className="bg-background/80"
             />
           </div>
           <div>
-            <label className="text-sm font-medium mb-1 block">Client</label>
+            <label className="mb-1 block text-sm font-medium">Client</label>
             <Input
               value={formData.client}
               onChange={e => onChange("client", e.target.value)}
               placeholder="Client name (can be generic)"
+              className="bg-background/80"
             />
           </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="text-sm font-medium mb-1 block">Sector</label>
+            <label className="mb-1 block text-sm font-medium">Sector</label>
             <Input
               value={formData.sector}
               onChange={e => onChange("sector", e.target.value)}
               placeholder="e.g., Construction, Manufacturing"
+              className="bg-background/80"
             />
           </div>
           <div>
-            <label className="text-sm font-medium mb-1 block">Image URL</label>
+            <label className="mb-1 block text-sm font-medium">Image URL</label>
             <Input
               value={formData.image}
               onChange={e => onChange("image", e.target.value)}
               placeholder="https://..."
+              className="bg-background/80"
             />
           </div>
         </div>
 
         <div>
-          <label className="text-sm font-medium mb-1 block">Description</label>
+          <label className="mb-1 block text-sm font-medium">Description</label>
           <textarea
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm min-h-[80px]"
+            className="min-h-[90px] w-full rounded-md border border-input bg-background/80 px-3 py-2 text-sm"
             value={formData.description}
             onChange={e => onChange("description", e.target.value)}
             placeholder="Brief project description"
@@ -103,9 +107,9 @@ export function ProjectForm({
         </div>
 
         <div>
-          <label className="text-sm font-medium mb-1 block">Challenge</label>
+          <label className="mb-1 block text-sm font-medium">Challenge</label>
           <textarea
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm min-h-[80px]"
+            className="min-h-[90px] w-full rounded-md border border-input bg-background/80 px-3 py-2 text-sm"
             value={formData.challenge}
             onChange={e => onChange("challenge", e.target.value)}
             placeholder="What was the problem?"
@@ -113,9 +117,9 @@ export function ProjectForm({
         </div>
 
         <div>
-          <label className="text-sm font-medium mb-1 block">Solution</label>
+          <label className="mb-1 block text-sm font-medium">Solution</label>
           <textarea
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm min-h-[80px]"
+            className="min-h-[90px] w-full rounded-md border border-input bg-background/80 px-3 py-2 text-sm"
             value={formData.solution}
             onChange={e => onChange("solution", e.target.value)}
             placeholder="What did you build?"
@@ -123,9 +127,9 @@ export function ProjectForm({
         </div>
 
         <div>
-          <label className="text-sm font-medium mb-1 block">Results</label>
+          <label className="mb-1 block text-sm font-medium">Results</label>
           <textarea
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm min-h-[80px]"
+            className="min-h-[90px] w-full rounded-md border border-input bg-background/80 px-3 py-2 text-sm"
             value={formData.results}
             onChange={e => onChange("results", e.target.value)}
             placeholder="What was the impact?"
@@ -133,7 +137,7 @@ export function ProjectForm({
         </div>
 
         <div>
-          <label className="text-sm font-medium mb-1 block">Technologies</label>
+          <label className="mb-1 block text-sm font-medium">Technologies</label>
           <div className="flex gap-2 mb-2">
             <Input
               value={techInput}
@@ -142,6 +146,7 @@ export function ProjectForm({
               onKeyDown={e =>
                 e.key === "Enter" && (e.preventDefault(), addTechnology())
               }
+              className="bg-background/80"
             />
             <Button type="button" onClick={addTechnology} variant="outline">
               Add
@@ -162,7 +167,7 @@ export function ProjectForm({
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 rounded-md border border-border/70 bg-background/70 px-3 py-2">
           <input
             type="checkbox"
             id="featured"
@@ -175,7 +180,7 @@ export function ProjectForm({
           </label>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Button onClick={onSubmit} disabled={saving}>
             <Save className="h-4 w-4 mr-2" />
             {saving

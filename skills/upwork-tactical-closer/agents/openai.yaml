@@ -1,0 +1,4 @@
+interface:
+  display_name: "Upwork Tactical Closer"
+  short_description: "Win high-value Upwork jobs with ROI-focused micro-demo strategy."
+  default_prompt: "Analyze this Upwork job and decide whether to build a 2-4 hour micro-demo, then produce a conversion-focused proposal and effort-vs-return strategy."

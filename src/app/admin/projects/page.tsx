@@ -1,12 +1,13 @@
 "use client";
 
-import { ArrowLeft, Sparkles } from "lucide-react";
-import Link from "next/link";
+import { Sparkles, Star, FolderKanban, Building2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { AIAssistant } from "@/components/admin/ai-assistant";
 import { ProjectForm } from "@/components/admin/project-form";
 import { ProjectList } from "@/components/admin/project-list";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   fetchProjects,
   createProject,
@@ -134,70 +135,112 @@ export default function ProjectsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="flex h-[40vh] items-center justify-center">
         <div className="text-muted-foreground">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Link href="/admin">
-              <Button variant="ghost" size="icon">
-                <ArrowLeft className="h-4 w-4" />
-              </Button>
-            </Link>
-            <div>
-              <h1 className="text-2xl font-bold">Projects</h1>
-              <p className="text-muted-foreground text-sm">
-                Manage your portfolio projects
-              </p>
-            </div>
+    <div className="space-y-6">
+      <section className="rounded-2xl border border-border/70 bg-card/80 p-6">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <Badge variant="outline">Content Operations</Badge>
+            <h1 className="mt-3 text-3xl font-semibold tracking-tight">
+              Project Management
+            </h1>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Create, edit, and prioritize portfolio projects with AI-assisted
+              drafting.
+            </p>
           </div>
-          <Button onClick={() => setShowAI(!showAI)} variant="outline">
+          <Button
+            onClick={() => setShowAI(!showAI)}
+            variant={showAI ? "default" : "outline"}
+          >
             <Sparkles className="h-4 w-4 mr-2" />
-            AI Assistant
+            {showAI ? "Hide AI Assistant" : "Open AI Assistant"}
           </Button>
         </div>
+      </section>
 
-        {error && (
-          <div className="mb-4 p-4 bg-destructive/10 border border-destructive/20 rounded-lg text-destructive text-sm">
-            {error}
-          </div>
-        )}
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <Card className="border-border/70 bg-card/80">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Total Projects
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex items-center justify-between">
+            <p className="text-2xl font-semibold">{projects.length}</p>
+            <FolderKanban className="h-5 w-5 text-cyan" />
+          </CardContent>
+        </Card>
+        <Card className="border-border/70 bg-card/80">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Featured
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex items-center justify-between">
+            <p className="text-2xl font-semibold">
+              {projects.filter(project => project.featured).length}
+            </p>
+            <Star className="h-5 w-5 text-ember" />
+          </CardContent>
+        </Card>
+        <Card className="border-border/70 bg-card/80 sm:col-span-2">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Covered Sectors
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex items-center justify-between">
+            <p className="text-2xl font-semibold">
+              {new Set(projects.map(project => project.sector).filter(Boolean))
+                .size || 0}
+            </p>
+            <Building2 className="h-5 w-5 text-primary" />
+          </CardContent>
+        </Card>
+      </section>
 
-        {showAI && (
-          <AIAssistant
-            onGenerate={handleAIGenerate}
-            onClose={() => setShowAI(false)}
-            type="project"
-          />
-        )}
-
-        <ProjectForm
-          formData={formData}
-          editingId={editingId}
-          saving={saving}
-          onSubmit={handleSubmit}
-          onCancel={resetForm}
-          onChange={handleInputChange}
-        />
-
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold">
-            Existing Projects ({projects.length})
-          </h2>
-          <ProjectList
-            projects={projects}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-            onToggleFeatured={handleToggleFeatured}
-          />
+      {error && (
+        <div className="rounded-xl border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive">
+          {error}
         </div>
-      </div>
+      )}
+
+      {showAI && (
+        <AIAssistant
+          onGenerate={handleAIGenerate}
+          onClose={() => setShowAI(false)}
+          type="project"
+        />
+      )}
+
+      <ProjectForm
+        formData={formData}
+        editingId={editingId}
+        saving={saving}
+        onSubmit={handleSubmit}
+        onCancel={resetForm}
+        onChange={handleInputChange}
+      />
+
+      <section className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold">Existing Projects</h2>
+          <Badge variant="outline">{projects.length} total</Badge>
+        </div>
+        <ProjectList
+          projects={projects}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          onToggleFeatured={handleToggleFeatured}
+        />
+      </section>
     </div>
   );
 }

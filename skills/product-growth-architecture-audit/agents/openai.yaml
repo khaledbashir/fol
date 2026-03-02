@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Growth Audit"
+  short_description: "Audit products for enterprise gaps, monetization, and scale."
+  default_prompt: "Analyze this product context and deliver an enterprise-grade production, monetization, UX, and scalability audit with prioritized actions."

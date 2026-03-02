@@ -68,17 +68,23 @@ function getProviderConfigs(): ProviderConfig[] {
 
 async function fetchModelsForProvider(
   config: ProviderConfig,
-): Promise<string[]> {
+): Promise<{ models: string[]; error?: string }> {
   try {
     const res = await fetch(`${config.baseUrl}/models`, {
       headers: { Authorization: `Bearer ${config.apiKey}` },
       signal: AbortSignal.timeout(10_000),
     });
-    if (!res.ok) return [];
+    if (!res.ok) {
+      return { models: [], error: `${config.prefix}: HTTP ${res.status}` };
+    }
     const data = (await res.json()) as { data?: { id: string }[] };
-    return (data.data ?? []).map(m => `${config.prefix}/${m.id}`);
-  } catch {
-    return [];
+    const models = (data.data ?? []).map(m => `${config.prefix}/${m.id}`);
+    return { models };
+  } catch (err) {
+    return {
+      models: [],
+      error: `${config.prefix}: ${err instanceof Error ? err.message : "Unknown error"}`,
+    };
   }
 }
 
@@ -97,7 +103,12 @@ export async function GET() {
   }
 
   const results = await Promise.all(configs.map(fetchModelsForProvider));
-  const models = results.flat();
+  const models = results.flatMap(r => r.models);
+  const errors = results.filter(r => r.error).map(r => r.error);
+
+  if (models.length === 0 && errors.length > 0) {
+    return NextResponse.json({ models: [], errors }, { status: 502 });
+  }
 
   return NextResponse.json({ models });
 }
@@ -162,11 +173,10 @@ export async function POST(request: Request) {
       actualModel = modelId.slice(slashIdx + 1);
     } else {
       config = configs[0]!;
-      // fetch first available model from provider
       const available = await fetchModelsForProvider(config);
       actualModel =
-        available.length > 0
-          ? available[0]!.slice(config.prefix.length + 1)
+        available.models.length > 0
+          ? available.models[0]!.slice(config.prefix.length + 1)
           : "";
     }
 

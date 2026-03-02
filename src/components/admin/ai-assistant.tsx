@@ -72,8 +72,8 @@ export function AIAssistant({ onGenerate, onClose, type }: AIAssistantProps) {
         ];
 
   return (
-    <Card className="mb-8 border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
-      <CardHeader>
+    <Card className="border-border/70 bg-card/80">
+      <CardHeader className="border-b border-border/70 pb-4">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-primary" />
@@ -84,9 +84,9 @@ export function AIAssistant({ onGenerate, onClose, type }: AIAssistantProps) {
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 pt-5">
         {error && (
-          <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-lg text-destructive text-sm">
+          <div className="rounded-lg border border-destructive/25 bg-destructive/10 p-3 text-sm text-destructive">
             {error}
           </div>
         )}
@@ -101,6 +101,7 @@ export function AIAssistant({ onGenerate, onClose, type }: AIAssistantProps) {
               onChange={e => setPrompt(e.target.value)}
               placeholder="E.g., A project about building an AI-powered inventory system..."
               onKeyDown={e => e.key === "Enter" && handleGenerate()}
+              className="bg-background/80"
             />
             <Button
               onClick={handleGenerate}
@@ -113,7 +114,7 @@ export function AIAssistant({ onGenerate, onClose, type }: AIAssistantProps) {
         </div>
 
         <div>
-          <p className="text-sm text-muted-foreground mb-2">
+          <p className="mb-2 text-sm text-muted-foreground">
             Quick suggestions:
           </p>
           <div className="flex flex-wrap gap-2">
@@ -131,8 +132,8 @@ export function AIAssistant({ onGenerate, onClose, type }: AIAssistantProps) {
           </div>
         </div>
 
-        <div className="text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg">
-          <p className="font-medium mb-1">💡 Tips:</p>
+        <div className="rounded-lg border border-border/70 bg-background/80 p-3 text-xs text-muted-foreground">
+          <p className="mb-1 font-medium">Prompt quality tips</p>
           <ul className="space-y-1 ml-4 list-disc">
             <li>Be specific about the industry and problem</li>
             <li>Mention key technologies or approaches</li>

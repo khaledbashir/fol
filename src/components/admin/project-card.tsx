@@ -22,25 +22,25 @@ export function ProjectCard({
 }: ProjectCardProps) {
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-      <Card className="bg-card/50 border-border/50 hover:border-border transition-colors">
-        <CardContent className="p-4">
+      <Card className="border-border/70 bg-card/80 transition-colors hover:border-primary/35">
+        <CardContent className="p-5">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <h3 className="font-semibold truncate">{project.title}</h3>
+              <div className="mb-1 flex items-center gap-2">
+                <h3 className="truncate font-semibold">{project.title}</h3>
                 {project.featured && (
-                  <Badge variant="default" className="text-xs">
+                  <Badge variant="default" className="text-xs font-medium">
                     Featured
                   </Badge>
                 )}
               </div>
-              <p className="text-sm text-muted-foreground mb-2">
+              <p className="mb-2 text-sm text-muted-foreground">
                 {project.client} · {project.sector}
               </p>
               <p className="text-sm text-muted-foreground line-clamp-2">
                 {project.description}
               </p>
-              <div className="flex flex-wrap gap-1 mt-2">
+              <div className="mt-3 flex flex-wrap gap-1.5">
                 {project.technologies.slice(0, 4).map((tech, i) => (
                   <Badge key={i} variant="outline" className="text-xs">
                     {tech}

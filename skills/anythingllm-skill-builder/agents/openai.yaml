@@ -1,0 +1,4 @@
+interface:
+  display_name: "AnythingLLM Skill Builder"
+  short_description: "Scaffold AnythingLLM agent skills."
+  default_prompt: "Build an AnythingLLM custom agent skill for my use case, including plugin.json and handler.js."

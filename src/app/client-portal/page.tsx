@@ -174,7 +174,20 @@ export default function ClientPortalPage() {
           </CardHeader>
           <CardContent className="space-y-4 pt-5">
             <div className="space-y-2">
-              <label className="block text-sm font-medium">Model</label>
+              <label className="flex items-center justify-between text-sm font-medium">
+                <span>Model</span>
+                {modelsLoading && (
+                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <Loader2 className="h-3 w-3 animate-spin" /> Loading...
+                  </span>
+                )}
+                {modelsError && (
+                  <span className="text-xs text-destructive">Error</span>
+                )}
+                {!modelsLoading && !modelsError && models.length > 0 && (
+                  <span className="text-xs text-green-600">Ready</span>
+                )}
+              </label>
               <select
                 value={selectedModel}
                 onChange={e => setSelectedModel(e.target.value)}
@@ -218,27 +231,37 @@ export default function ClientPortalPage() {
             </div>
 
             <div className="max-h-[420px] space-y-3 overflow-y-auto rounded-md border border-border/70 bg-background/50 p-3">
-              {messages.length === 0 ? (
+              {messages.length === 0 && !sending ? (
                 <p className="text-sm text-muted-foreground">
                   Start a conversation. This route runs `opencode run` on the
                   server and returns the response.
                 </p>
               ) : (
-                messages.map((m, i) => (
-                  <div
-                    key={`${m.role}-${i}`}
-                    className={`rounded-md px-3 py-2 text-sm ${
-                      m.role === "user" ? "ml-8 bg-primary/15" : "mr-8 bg-muted"
-                    }`}
-                  >
-                    <p className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                      {m.role}
-                    </p>
-                    <pre className="whitespace-pre-wrap font-sans">
-                      {m.text}
-                    </pre>
-                  </div>
-                ))
+                <>
+                  {messages.map((m, i) => (
+                    <div
+                      key={`${m.role}-${i}`}
+                      className={`rounded-md px-3 py-2 text-sm ${
+                        m.role === "user"
+                          ? "ml-8 bg-primary/15"
+                          : "mr-8 bg-muted"
+                      }`}
+                    >
+                      <p className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                        {m.role}
+                      </p>
+                      <pre className="whitespace-pre-wrap font-sans">
+                        {m.text}
+                      </pre>
+                    </div>
+                  ))}
+                  {sending && (
+                    <div className="mr-8 flex items-center gap-2 rounded-md bg-muted px-3 py-2 text-sm">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      <span className="text-muted-foreground">Thinking...</span>
+                    </div>
+                  )}
+                </>
               )}
             </div>
 

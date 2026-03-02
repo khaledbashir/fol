@@ -19,7 +19,7 @@ export function ProjectList({
 }: ProjectListProps) {
   if (projects.length === 0) {
     return (
-      <Card className="bg-card/50 border-border/50">
+      <Card className="border-border/70 bg-card/80">
         <CardContent className="py-8 text-center text-muted-foreground">
           No projects yet. Add your first project above.
         </CardContent>
