@@ -1,9 +1,36 @@
-import { spawn } from "node:child_process";
+import { execSync, spawn } from "node:child_process";
+import { existsSync } from "node:fs";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 const WORKSPACE_ROOT = process.env["WORKSPACE_ROOT"] || process.cwd();
-const OPENCODE_BIN = process.env["OPENCODE_BIN"] || "opencode";
+const OPENCODE_CANDIDATES = [
+  process.env["OPENCODE_BIN"],
+  "/root/.opencode/bin/opencode",
+  "/home/node/.opencode/bin/opencode",
+].filter(Boolean) as string[];
+
+function getOpencodeBin(): string {
+  for (const candidate of OPENCODE_CANDIDATES) {
+    if (existsSync(candidate)) return candidate;
+  }
+
+  try {
+    const fromPath = execSync("command -v opencode", {
+      cwd: WORKSPACE_ROOT,
+      stdio: ["ignore", "pipe", "ignore"],
+    })
+      .toString()
+      .trim();
+    if (fromPath) return fromPath;
+  } catch {
+    // no-op
+  }
+
+  throw new Error(
+    "OpenCode binary not found in container. Set OPENCODE_BIN (absolute path) or install opencode in this runtime.",
+  );
+}
 
 const ANSI_REGEX =
   /\u001b\[[0-9;]*m|\u001b\][^\u0007]*(?:\u0007|\u001b\\)|[\u0000-\u0008\u000b-\u001a\u001c-\u001f]/g;
@@ -19,13 +46,21 @@ function sanitizeOutput(value: string): string {
 
 function runOpenCode(message: string, model?: string): Promise<string> {
   return new Promise((resolve, reject) => {
+    let opencodeBin: string;
+    try {
+      opencodeBin = getOpencodeBin();
+    } catch (error) {
+      reject(error);
+      return;
+    }
+
     const args = ["run"];
     if (model) {
       args.push("-m", model);
     }
     args.push(message);
 
-    const child = spawn(OPENCODE_BIN, args, {
+    const child = spawn(opencodeBin, args, {
       cwd: WORKSPACE_ROOT,
       env: { ...process.env, NO_COLOR: "1", FORCE_COLOR: "0" },
     });
@@ -113,7 +148,8 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-    const child = spawn(OPENCODE_BIN, ["models"], {
+    const opencodeBin = getOpencodeBin();
+    const child = spawn(opencodeBin, ["models"], {
       cwd: WORKSPACE_ROOT,
       env: { ...process.env, NO_COLOR: "1", FORCE_COLOR: "0" },
     });
