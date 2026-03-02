@@ -17,7 +17,9 @@ WORKDIR /app
 
 RUN npm install -g pnpm
 RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates bash && rm -rf /var/lib/apt/lists/*
-RUN curl -fsSL https://opencode.ai/install | bash
+RUN curl -fsSL https://opencode.ai/install | bash && \
+    cp /root/.opencode/bin/opencode /usr/local/bin/opencode && \
+    chmod 755 /usr/local/bin/opencode
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -35,6 +37,6 @@ EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
-ENV OPENCODE_BIN="/root/.opencode/bin/opencode"
+ENV OPENCODE_BIN="/usr/local/bin/opencode"
 
 CMD ["node", "server.js"]
