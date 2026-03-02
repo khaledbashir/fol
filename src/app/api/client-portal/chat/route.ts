@@ -74,6 +74,7 @@ function getProviders(): Provider[] {
       baseUrl: "https://api.inceptionlabs.ai/v1",
       apiKey: process.env["INCEPTION_API_KEY"]!,
       models: [
+        "inception/mercury-2",
         "inception/mercury-coder-small-beta",
         "inception/mercury-coder-small",
       ],
