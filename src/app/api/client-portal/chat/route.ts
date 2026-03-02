@@ -63,7 +63,7 @@ function runOpenCode(message: string, model?: string): Promise<string> {
 
     const child = spawn(opencodeBin, args, {
       cwd: WORKSPACE_ROOT,
-      env: { ...process.env, NO_COLOR: "1", FORCE_COLOR: "0" },
+      env: { ...process.env, NO_COLOR: "1", FORCE_COLOR: "0", HOME: "/tmp" },
     });
 
     let stdout = "";
@@ -152,7 +152,7 @@ export async function GET() {
     const opencodeBin = getOpencodeBin();
     const child = spawn(opencodeBin, ["models"], {
       cwd: WORKSPACE_ROOT,
-      env: { ...process.env, NO_COLOR: "1", FORCE_COLOR: "0" },
+      env: { ...process.env, NO_COLOR: "1", FORCE_COLOR: "0", HOME: "/tmp" },
     });
 
     let stdout = "";
