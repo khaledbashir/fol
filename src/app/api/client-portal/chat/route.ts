@@ -40,6 +40,34 @@ function getProviders(): Provider[] {
     });
   }
 
+  if (process.env["OPENAI_API_KEY"]) {
+    providers.push({
+      prefix: "openai",
+      baseUrl: "https://api.openai.com/v1",
+      apiKey: process.env["OPENAI_API_KEY"]!,
+      models: [
+        "openai/gpt-4o",
+        "openai/gpt-4o-mini",
+        "openai/o3-mini",
+        "openai/gpt-4-turbo",
+      ],
+    });
+  }
+
+  if (process.env["GEMINI_API_KEY"]) {
+    providers.push({
+      prefix: "gemini",
+      baseUrl: "https://generativelanguage.googleapis.com/v1beta/openai",
+      apiKey: process.env["GEMINI_API_KEY"]!,
+      models: [
+        "gemini/gemini-2.0-flash",
+        "gemini/gemini-2.0-flash-lite",
+        "gemini/gemini-1.5-pro",
+        "gemini/gemini-1.5-flash",
+      ],
+    });
+  }
+
   return providers;
 }
 
@@ -63,7 +91,8 @@ export async function GET() {
   if (models.length === 0) {
     return NextResponse.json(
       {
-        error: "No AI providers configured. Set ZAI_API_KEY or NVIDIA_API_KEY.",
+        error:
+          "No AI providers configured. Set ZAI_API_KEY, NVIDIA_API_KEY, OPENAI_API_KEY, or GEMINI_API_KEY.",
       },
       { status: 503 },
     );
@@ -103,7 +132,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "No AI providers configured. Set ZAI_API_KEY or NVIDIA_API_KEY.",
+            "No AI providers configured. Set ZAI_API_KEY, NVIDIA_API_KEY, OPENAI_API_KEY, or GEMINI_API_KEY.",
         },
         { status: 503 },
       );
